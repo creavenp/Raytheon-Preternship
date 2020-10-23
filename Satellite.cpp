@@ -26,7 +26,7 @@ class Satellite {
                return z;
           }
 
-          double set_coords(double x, double y, double z) {
+          void set_coords(double x, double y, double z) {
                this -> x = x;
                this -> y = y;
                this -> z = z;
@@ -40,6 +40,6 @@ int main() {
 
      std::cout << "X location: " << sat_1.get_x() << std::endl;
      std::cout << "Y location: " << sat_1.get_y() << std::endl;
-     std::cout << "Z location: " << sat_1.get_z() << std::endl;     
+     std::cout << "Z location: " << sat_1.get_z() << std::endl;
      return 0;
 }
