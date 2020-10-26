@@ -1,4 +1,4 @@
-#include "Satellite.h"
+#include "../include/Satellite.h"
 
 int main() {
 

@@ -1,3 +1,6 @@
+#ifndef SATELLITE_H
+#define SATELLITE_H
+
 #include <iostream>
 
 class Satellite {
@@ -12,7 +15,7 @@ class Satellite {
 
      public:
 
-          Satellite(double x, double y, double z) : x(x), y(y), z(z) {}
+          Satellite(double x_in, double y_in, double z_in) : x(x_in), y(y_in), z(z_in) {}
 
           double get_x() {
                return x;
@@ -26,9 +29,11 @@ class Satellite {
                return z;
           }
 
-          void set_coords(double x, double y, double z) {
-               this -> x = x;
-               this -> y = y;
-               this -> z = z;
+          void set_coords(double x_in, double y_in, double z_in) {
+               this -> x = x_in;
+               this -> y = y_in;
+               this -> z = z_in;
           }
 };
+
+#endif
