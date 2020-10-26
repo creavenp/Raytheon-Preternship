@@ -7,7 +7,7 @@ class Satellite {
 
      private:
 
-          // Coordinates of the satellite in outer space
+          // Coordinates of the structure
           // Relative to the center of the Earth
           double x;
           double y;
@@ -15,7 +15,9 @@ class Satellite {
 
      public:
 
-          Satellite(double x_in, double y_in, double z_in) : x(x_in), y(y_in), z(z_in) {}
+          Structure(double x_in, double y_in, double z_in) : x(x_in), y(y_in), z(z_in) {}
+
+          virtual ~Structure() {}
 
           double get_x() {
                return x;
