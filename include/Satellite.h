@@ -15,9 +15,7 @@ class Satellite {
 
      public:
 
-          Structure(double x_in, double y_in, double z_in) : x(x_in), y(y_in), z(z_in) {}
-
-          virtual ~Structure() {}
+          Satellite(double x_in, double y_in, double z_in) : x(x_in), y(y_in), z(z_in) {}
 
           double get_x() {
                return x;
