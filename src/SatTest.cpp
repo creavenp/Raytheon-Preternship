@@ -1,3 +1,4 @@
+#include "../include/Structure.h"
 #include "../include/Satellite.h"
 
 int main() {

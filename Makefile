@@ -14,17 +14,16 @@ EXE := exe
 OBJ := obj
 
 
-# Command: make Satellite
+# Command: make SatTest
 # Initial Examples of Vertex
-SatelliteObjs := $(OBJ)/Satellite.o
+SatTestObjs := $(OBJ)/SatTest.o
 
-Satellite: $(SatelliteObjs)
-	$(PP) $(CXXFLAGS) -o $(EXE)/Satellite $(SatelliteObjs)
-	$(EXE)/./Satellite
+SatTest: $(SatTestObjs)
+	$(PP) $(CXXFLAGS) -o $(EXE)/SatTest $(SatTestObjs)
+	$(EXE)/./SatTest
 
-$(OBJ)/Satellite.o: $(SRC)/Satellite.cpp
-	$(PP) $(CXXFLAGS) -c $(SRC)/Satellite.cpp -o $@
-
+$(OBJ)/SatTest.o: $(SRC)/SatTest.cpp $(INC)/Structure.h $(INC)/Satellite.h
+	$(PP) $(CXXFLAGS) -c $(SRC)/SatTest.cpp -o $@
 
 # make initialize
 # Will be called by grader to initialize your objects and executables folders
