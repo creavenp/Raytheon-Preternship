@@ -43,7 +43,7 @@ initialize:
 
 
 # Make all
-all: Satellite
+all: Satellite Project
 
 
 # Make clean

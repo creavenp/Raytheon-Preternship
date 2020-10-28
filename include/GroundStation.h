@@ -5,9 +5,11 @@ class GroundStation : public Structure {
 
      public:
 
-          // Constructor
-          GroundStation(double x_in, double y_in, double z_in) :
-                    Structure(x_in, y_in, z_in) {}
+          // Default Constructor
+		  GroundStation() : Structure(0, 0, 0) {}
+
+		  // Constructor
+          GroundStation(double x_in, double y_in, double z_in) : Structure(x_in, y_in, z_in) {}
 
           // Destructor
           ~GroundStation() {}

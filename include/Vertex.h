@@ -64,7 +64,7 @@ class Vertex{
 		}
 
 		// Adding an Edge to a Vertex
-		void add_edge( unsigned int destin, int weight ){
+		void add_edge( unsigned int destin, double weight ){
 
 			// If not, put the edge on the back of the array
 			edges.push_back( Edge(destin, weight) );

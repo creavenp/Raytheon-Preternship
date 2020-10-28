@@ -38,6 +38,12 @@ class Structure {
                this -> y = y_in;
                this -> z = z_in;
           }
+
+		  // Overloaded << operator
+		  friend std::ostream& operator<<(std::ostream& output, const Structure& theStructure){
+		       output << "Structure at (" << theStructure.get_x() << ", " << theStructure.get_y() << ", " << theStructure.get_z() << ")";
+			   return output;
+		  }
 };
 
 #endif
