@@ -15,7 +15,6 @@ OBJ := obj
 
 
 # Command: make SatTest
-# Initial Examples of Vertex
 SatTestObjs := $(OBJ)/SatTest.o
 
 SatTest: $(SatTestObjs)
@@ -24,6 +23,18 @@ SatTest: $(SatTestObjs)
 
 $(OBJ)/SatTest.o: $(SRC)/SatTest.cpp $(INC)/Structure.h $(INC)/Satellite.h
 	$(PP) $(CXXFLAGS) -c $(SRC)/SatTest.cpp -o $@
+
+
+# Command: make Project
+ProjectObjs := $(OBJ)/Project.o
+
+Project: $(ProjectObjs)
+	$(PP) $(CXXFLAGS) -o $(EXE)/Project $(ProjectObjs)
+	$(EXE)/./Project
+
+$(OBJ)/Project.o: $(SRC)/Project.cpp $(INC)/Project.h
+	$(PP) $(CXXFLAGS) -c $(SRC)/Project.cpp -o $@
+
 
 # make initialize
 # Will be called by grader to initialize your objects and executables folders

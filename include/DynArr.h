@@ -23,7 +23,7 @@ class DynArr{
 
 		public:
 
-			DynArr(const int sizeIn = 0) :
+			DynArr(const unsigned int sizeIn = 0) :
 				size(sizeIn),
 				capac(sizeIn),
 				data(new T[capac]) {}

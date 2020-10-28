@@ -21,15 +21,15 @@ class Structure {
           // Virtual Destructor
           virtual ~Structure() {}
 
-          double get_x() {
+          double get_x() const {
                return x;
           }
 
-          double get_y() {
+          double get_y() const {
                return y;
           }
 
-          double get_z() {
+          double get_z() const {
                return z;
           }
 

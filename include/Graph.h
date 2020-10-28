@@ -23,7 +23,7 @@ class Graph{
 		}
 
 		// Add Edge from Origin to Destination, with weight
-		void add_edge(unsigned int origin, unsigned int destin, int weight ){
+		void add_edge(unsigned int origin, unsigned int destin, double weight ){
 			if( origin < vertices.length() && destin < vertices.length() ){
 
 				vertices[origin].add_edge( destin, weight );
@@ -59,7 +59,7 @@ class Graph{
 
 		// Return the value with a Call by Reference
 		// bool for if the origin and destination requested were valid
-		bool get_edge_value( unsigned int origin, unsigned int destin, int& weight){
+		bool get_edge_value( unsigned int origin, unsigned int destin, double& weight){
 
 			if( origin < vertices.length() && destin < vertices.length() ){
 
@@ -71,7 +71,7 @@ class Graph{
 
 		// Set the value at a given origin and destination
 		// bool for if the origin and destination requested were valid
-		bool set_edge_value( unsigned int origin, unsigned int destin, int weight){
+		bool set_edge_value( unsigned int origin, unsigned int destin, double weight){
 
 			if( origin < vertices.length() && destin < vertices.length() ){
 
