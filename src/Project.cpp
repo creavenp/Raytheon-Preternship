@@ -1,5 +1,7 @@
 #include "../include/Project.h"
 
+enum sat_id {sat1, sat2, sat3, sat4};
+
 int c = 300000000;
 
 double calculate_distance(Satellite sat1, Satellite sat2) {
@@ -24,8 +26,9 @@ int main() {
      constellation.add_vertex(sat_3);
 
      // Add distances (edges)
-     constellation.add_edge(0, 1, calculate_distance(sat_1, sat_2));
-     constellation.add_edge(0, 2, calculate_distance(sat_1, sat_3));
+     constellation.add_edge(sat1, sat2, calculate_distance(sat_1, sat_2));
+     constellation.add_edge(sat1, sat3, calculate_distance(sat_1, sat_3));
 
      std::cout << constellation << std::endl;
+
 }
