@@ -29,6 +29,21 @@ int main() {
      constellation.add_edge(sat1, sat2, calculate_distance(sat_1, sat_2));
      constellation.add_edge(sat1, sat3, calculate_distance(sat_1, sat_3));
 
-     std::cout << constellation << std::endl;
+	 /*int x = 0;
+	 for (int i = 0; i < 10; ++i) {
+		 std::cout << "\033[2J\033[1;1H";
+		 std::cout << x << std::endl;
+		 ++x;
+		 usleep(1000000);
+	 }*/
 
+     // Updates the first satellite's location
+	 /*for (int i = 0; i < 10; ++i) {
+		 sat_1.set_y(sat_1.get_y() + 5);
+		 std::cout << "\033[2J\033[1;1H";
+		 usleep(1000000);
+		 std::cout << constellation << std::endl;
+	 }*/
+
+	 std::cout << constellation << std::endl;
 }

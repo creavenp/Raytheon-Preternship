@@ -6,6 +6,7 @@
 #include "../include/GroundStation.h"
 #include "../include/Graph.h"
 #include <math.h>
+#include <unistd.h>
 
 double calculate_distance(Satellite sat1, Satellite sat2);
 

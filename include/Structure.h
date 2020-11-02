@@ -32,6 +32,18 @@ class Structure {
           double get_z() const {
                return z;
           }
+	
+		  void set_x(double x_in) {
+		  	   this -> x = x_in;
+		  }
+
+		  void set_y(double y_in) {
+		  	   this -> y = y_in;
+		  }
+
+		  void set_z(double z_in) {
+		  	   this -> z = z_in;
+		  }
 
           void set_coords(double x_in, double y_in, double z_in) {
                this -> x = x_in;
