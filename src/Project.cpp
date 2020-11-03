@@ -30,6 +30,10 @@ int main() {
      // Add distances (edges)
      constellation.add_edge(sat1, sat2, calculate_distance(sat_1, sat_2));
      constellation.add_edge(sat1, sat3, calculate_distance(sat_1, sat_3));
+     constellation.add_edge(sat1, sat4, calculate_distance(sat_1, sat_4));
+     constellation.add_edge(sat3, sat2, calculate_distance(sat_3, sat_2));
+     constellation.add_edge(sat3, sat4, calculate_distance(sat_3, sat_4));
+     constellation.add_edge(sat2, sat4, calculate_distance(sat_3, sat_4));
 
      // Instantiate Ground Stations
      GroundStation gs_1(0, 0.5, 3);
@@ -44,6 +48,6 @@ int main() {
           usleep(1000000);
      }*/
 
-     constellation.Dijkstra(sat3);
+     constellation.Dijkstra(sat4);
 
 }
