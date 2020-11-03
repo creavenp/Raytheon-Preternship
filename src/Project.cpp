@@ -34,20 +34,13 @@ int main() {
      GroundStation gs_1(0, 0.5, 3);
      GroundStation gs_2(-3.1, 1.1, 0);
 
-	 /*int x = 0;
-	 for (int i = 0; i < 10; ++i) {
-		 std::cout << "\033[2J\033[1;1H";
-		 std::cout << x << std::endl;
-		 ++x;
-		 usleep(1000000);
-	 }*/
-
      // Updates the first satellite's location
 	for (int i = 0; i < 10; ++i) {
           std::cout << "\033[2J\033[1;1H";
           std::cout << constellation << std::endl;
-          double curr_x = constellation.get_satellite_x(sat1) + 10;
+          double curr_x = constellation.get_satellite_x(sat1) + pow(2, cos(constellation.get_satellite_x(sat1))); // example function
           constellation.set_satellite_x(sat1, curr_x);
           usleep(1000000);
      }
+
 }
