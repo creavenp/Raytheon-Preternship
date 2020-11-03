@@ -46,4 +46,6 @@ int main() {
 	 }*/
 
 	 std::cout << constellation << std::endl;
+
+	 return 0;
 }

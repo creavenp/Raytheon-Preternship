@@ -13,7 +13,7 @@ class DynArr{
 			T* data;
 
 
-			void copy(T* destin, T* origin, int len){
+			void copy(T* destin, T* origin, unsigned int len){
 
 				for(unsigned int iter = 0; iter < len; ++iter){
 

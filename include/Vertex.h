@@ -155,7 +155,7 @@ class Vertex{
 				output << "[" << theVert.data << ": ";
 
 				//
-				for( long unsigned int iter = 0; iter < theVert.edges.length(); iter++ ){
+				for( unsigned int iter = 0; iter < theVert.edges.length(); iter++ ){
 
 					// Print the destination
 					output << "{" << theVert.edges[iter].destin << ", ";
