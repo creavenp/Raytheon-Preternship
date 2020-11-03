@@ -13,7 +13,7 @@ double calculate_distance(Satellite sat1, Satellite sat2) {
 }
 
 int main() {
-     Graph<Satellite> constellation;
+     Graph_Sat constellation;
 
      // Instantiate Satellites
      Satellite sat_1(1, 4, 3);
