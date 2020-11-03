@@ -12,7 +12,6 @@ double calculate_distance(Satellite sat1, Satellite sat2) {
      return sqrt(sum);
 }
 
-
 int main() {
      Graph_Sat constellation;
 
@@ -20,11 +19,13 @@ int main() {
      Satellite sat_1(1, 4, 3);
      Satellite sat_2(1.5, 7, 3.3);
      Satellite sat_3(5.4, 2.2, 2.9);
+     Satellite sat_4(9.3, 1.1, 0.2);
 
      // Add satellites to the constellation
      constellation.add_vertex(sat_1);
      constellation.add_vertex(sat_2);
      constellation.add_vertex(sat_3);
+     constellation.add_vertex(sat_4);
 
      // Add distances (edges)
      constellation.add_edge(sat1, sat2, calculate_distance(sat_1, sat_2));
@@ -35,12 +36,14 @@ int main() {
      GroundStation gs_2(-3.1, 1.1, 0);
 
      // Updates the first satellite's location
-	for (int i = 0; i < 10; ++i) {
+	/*for (int i = 0; i < 10; ++i) {
           std::cout << "\033[2J\033[1;1H";
           std::cout << constellation << std::endl;
           double curr_x = constellation.get_satellite_x(sat1) + pow(2, cos(constellation.get_satellite_x(sat1))); // example function
           constellation.set_satellite_x(sat1, curr_x);
           usleep(1000000);
-     }
+     }*/
+
+     constellation.Dijkstra(sat3);
 
 }
