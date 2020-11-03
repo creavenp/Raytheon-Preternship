@@ -53,7 +53,7 @@ class Vertex{
 			return *this;
 		}
 
-		T get_vertex_value() const{
+		T& get_vertex_value() {
 
 			return data;
 		}

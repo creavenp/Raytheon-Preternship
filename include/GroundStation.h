@@ -1,5 +1,5 @@
-#ifndef SATELLITE_H
-#define SATELLITE_H
+#ifndef GROUNDSTATION_H
+#define GROUNDSTATION_H
 
 class GroundStation : public Structure {
 
