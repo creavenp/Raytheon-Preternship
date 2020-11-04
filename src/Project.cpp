@@ -4,10 +4,10 @@ enum sat_id {sat1, sat2, sat3, sat4};
 
 int c = 300000000;
 
-double calculate_distance(Satellite sat1, Satellite sat2) {
-     double x_diff = sat1.get_x() - sat2.get_x();
-     double y_diff = sat1.get_y() - sat2.get_y();
-     double z_diff = sat1.get_z() - sat2.get_z();
+double calculate_distance(Satellite satellite_1, Satellite satellite_2) {
+     double x_diff = satellite_1.get_x() - satellite_2.get_x();
+     double y_diff = satellite_1.get_y() - satellite_2.get_y();
+     double z_diff = satellite_1.get_z() - satellite_2.get_z();
      double sum = pow(x_diff, 2) + pow(y_diff, 2) + pow(z_diff, 2);
      return sqrt(sum);
 }
@@ -54,9 +54,14 @@ int main() {
      constellation.add_vertex(sat_1);
      constellation.add_vertex(sat_2);
 
+     constellation.add_edge(sat1 ,sat2, calculate_distance(sat_1, sat_2));
+
      for (double t = 0; t < 6 * M_PI; t += 0.05) { // Three revolutions
           std::cout << "\033[2J\033[1;1H";
-          std::cout << constellation << std::endl;
+          std::cout << constellation << std::endl << std::endl;
+
+          constellation.set_edge_value(sat1, sat2, calculate_distance(constellation.get_vertex(sat1), constellation.get_vertex(sat2)));
+          constellation.Dijkstra(sat2);
 
           // Satellite 1 location
           constellation.set_satellite_x(sat1, sqrt(50) * cos(t));

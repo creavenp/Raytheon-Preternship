@@ -88,7 +88,7 @@ class Vertex{
 		}
 
 		// Pass the destination and weight, bool if found
-		bool set_edge_value( unsigned int destin, int weight) {
+		bool set_edge_value( unsigned int destin, double weight) {
 
 			bool edgeFound = false;
 

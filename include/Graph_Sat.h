@@ -22,6 +22,10 @@ class Graph_Sat {
                vertices.push_back(theVertex);
           }
 
+          Satellite get_vertex(unsigned int vertex) {
+               return vertices[vertex].get_vertex_value();
+          }
+
           // Add Edge from Origin to Destination, with weight
           void add_edge(unsigned int origin, unsigned int destin, double weight) {
                if (origin < vertices.length() && destin < vertices.length()) {
@@ -78,7 +82,11 @@ class Graph_Sat {
                }
           }
 
-          // Add get and set edge functions theStructure
+          void set_edge_value(unsigned int origin, unsigned int destin, double weight) {
+               if (origin < vertices.length() && destin < vertices.length()) {
+                    vertices[origin].set_edge_value(destin, weight);
+               }
+          }
 
           // Dijkstra's Algorithm
 		void Dijkstra( unsigned int destin ){
