@@ -53,7 +53,7 @@ class Structure {
 
 		// Overloaded << operator
 		friend std::ostream& operator<<(std::ostream& output, const Structure& theStructure){
-		     output << "Structure at (" << theStructure.get_x() << ", " << theStructure.get_y() << ", " << theStructure.get_z() << ")";
+		     output << "Satellite at (" << theStructure.get_x() << ", " << theStructure.get_y() << ", " << theStructure.get_z() << ")";
 			return output;
 		}
 };

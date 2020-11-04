@@ -16,7 +16,7 @@ int main() {
      Graph_Sat constellation;
 
      // Instantiate Satellites
-     Satellite sat_1(1, 4, 3);
+     /*Satellite sat_1(1, 4, 3);
      Satellite sat_2(1.5, 7, 3.3);
      Satellite sat_3(5.4, 2.2, 2.9);
      Satellite sat_4(9.3, 1.1, 0.2);
@@ -40,7 +40,7 @@ int main() {
      GroundStation gs_2(-3.1, 1.1, 0);
 
      // Updates the first satellite's location
-	/*for (int i = 0; i < 10; ++i) {
+	 for (int i = 0; i < 10; ++i) {
           std::cout << "\033[2J\033[1;1H";
           std::cout << constellation << std::endl;
           double curr_x = constellation.get_satellite_x(sat1) + pow(2, cos(constellation.get_satellite_x(sat1))); // example function
@@ -48,6 +48,27 @@ int main() {
           usleep(1000000);
      }*/
 
-     constellation.Dijkstra(sat4);
+     Satellite sat_1(5, 5, 2);
+     Satellite sat_2(1, 4, 4);
+
+     constellation.add_vertex(sat_1);
+     constellation.add_vertex(sat_2);
+
+     for (double t = 0; t < 6 * M_PI; t += 0.05) { // Three revolutions
+          std::cout << "\033[2J\033[1;1H";
+          std::cout << constellation << std::endl;
+
+          // Satellite 1 location
+          constellation.set_satellite_x(sat1, sqrt(50) * cos(t));
+          constellation.set_satellite_y(sat1, sqrt(50) * sin(t));
+          constellation.set_satellite_z(sat1, cos(t) * 2 * sqrt(2));
+
+          // Satelllite 2 location
+          constellation.set_satellite_x(sat2, sqrt(17) * cos(t));
+          constellation.set_satellite_y(sat2, sqrt(17) * sin(t));
+          constellation.set_satellite_z(sat2, 4 * sqrt(17) * cos(t));
+
+          usleep(100000);
+     }
 
 }

@@ -36,6 +36,7 @@ class Graph_Sat {
                     x = vertices[vertex].get_vertex_value().get_x();
                     return x;
                }
+               // We will prevent this return from ever happening
                return -1;
           }
 
@@ -45,6 +46,7 @@ class Graph_Sat {
                     y = vertices[vertex].get_vertex_value().get_y();
                     return y;
                }
+               // We will prevent this return from ever happening
                return -1;
           }
 
@@ -54,6 +56,7 @@ class Graph_Sat {
                     z = vertices[vertex].get_vertex_value().get_z();
                     return z;
                }
+               // We will prevent this return from ever happening
                return -1;
           }
 
