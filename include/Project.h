@@ -4,7 +4,6 @@
 #include "../include/Structure.h"
 #include "../include/Satellite.h"
 #include "../include/GroundStation.h"
-#include "../include/Graph.h"
 #include "../include/Graph_Sat.h"
 #include <math.h>
 #include <unistd.h>

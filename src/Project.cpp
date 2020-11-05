@@ -50,18 +50,24 @@ int main() {
 
      Satellite sat_1(5, 5, 2);
      Satellite sat_2(1, 4, 4);
+	 Satellite sat_3(5, 2, 3);
 
      constellation.add_vertex(sat_1);
      constellation.add_vertex(sat_2);
+	 constellation.add_vertex(sat_3);
 
      constellation.add_edge(sat1 ,sat2, calculate_distance(sat_1, sat_2));
+	 constellation.add_edge(sat1, sat3, calculate_distance(sat_1, sat_3));
+	 constellation.add_edge(sat2, sat3, calculate_distance(sat_2, sat_3));
 
      for (double t = 0; t < 6 * M_PI; t += 0.05) { // Three revolutions
           std::cout << "\033[2J\033[1;1H";
           std::cout << constellation << std::endl << std::endl;
 
           constellation.set_edge_value(sat1, sat2, calculate_distance(constellation.get_vertex(sat1), constellation.get_vertex(sat2)));
-          constellation.Dijkstra(sat2);
+		  constellation.set_edge_value(sat1, sat3, calculate_distance(constellation.get_vertex(sat1), constellation.get_vertex(sat3)));
+		  constellation.set_edge_value(sat2, sat3, calculate_distance(constellation.get_vertex(sat2), constellation.get_vertex(sat3)));
+          //constellation.Dijkstra(sat2);
 
           // Satellite 1 location
           constellation.set_satellite_x(sat1, sqrt(50) * cos(t));
@@ -72,6 +78,11 @@ int main() {
           constellation.set_satellite_x(sat2, sqrt(17) * cos(t));
           constellation.set_satellite_y(sat2, sqrt(17) * sin(t));
           constellation.set_satellite_z(sat2, 4 * sqrt(17) * cos(t));
+
+		  // Satellite 3 location
+		  constellation.set_satellite_x(sat3, sqrt(29) * cos(t));
+		  constellation.set_satellite_y(sat3, sqrt(29) * sin(t));
+		  constellation.set_satellite_z(sat3, sqrt(29) * 3 / 5 * cos(t));
 
           usleep(100000);
      }
