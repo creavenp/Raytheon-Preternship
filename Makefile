@@ -13,18 +13,6 @@ SRC := src
 EXE := exe
 OBJ := obj
 
-
-# Command: make SatTest
-SatTestObjs := $(OBJ)/SatTest.o
-
-SatTest: $(SatTestObjs)
-	$(PP) $(CXXFLAGS) -o $(EXE)/SatTest $(SatTestObjs)
-	$(EXE)/./SatTest
-
-$(OBJ)/SatTest.o: $(SRC)/SatTest.cpp $(INC)/Structure.h $(INC)/Satellite.h
-	$(PP) $(CXXFLAGS) -c $(SRC)/SatTest.cpp -o $@
-
-
 # Command: make Project
 ProjectObjs := $(OBJ)/Project.o
 
@@ -43,7 +31,7 @@ initialize:
 
 
 # Make all
-all: Satellite Project
+all: Project
 
 
 # Make clean
