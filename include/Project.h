@@ -9,7 +9,8 @@
 #include <time.h>
 #include <unistd.h>
 
-double calculate_distance(Satellite sat1, Satellite sat2);
-
+double calculate_distance(Structure s1, Structure s2);
+void add_edges(Graph_Sat &constellation);
+void update_edges(Graph_Sat &constellation);
 
 #endif

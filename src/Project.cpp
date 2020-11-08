@@ -2,63 +2,113 @@
 
 enum sat_id {sat1, sat2, sat3, sat4};
 
-int c = 300000000;
+#define c 300000000
 
-double calculate_distance(Satellite satellite_1, Satellite satellite_2) {
-     double x_diff = satellite_1.get_x() - satellite_2.get_x();
-     double y_diff = satellite_1.get_y() - satellite_2.get_y();
-     double z_diff = satellite_1.get_z() - satellite_2.get_z();
+double calculate_distance(Structure struct_1, Structure struct_2) {
+     double x_diff = struct_1.get_x() - struct_2.get_x();
+     double y_diff = struct_1.get_y() - struct_2.get_y();
+     double z_diff = struct_1.get_z() - struct_2.get_z();
      double sum = pow(x_diff, 2) + pow(y_diff, 2) + pow(z_diff, 2);
      return sqrt(sum);
+}
+
+void add_edges(Graph_Sat &constellation)
+{
+     // Add viable edges between satellites
+     // Satellites can communicate with the one in front of it, behind it, above it, and below it
+     for(int i = 0; i < 7; i ++)
+     {
+       // Horizontal links
+      constellation.add_edge(i, i+1, calculate_distance(constellation.get_vertex(i), constellation.get_vertex(i+i)));
+      constellation.add_edge(i+1, i, calculate_distance(constellation.get_vertex(i+1), constellation.get_vertex(i)));
+      constellation.add_edge(i+8, i+9, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i+9)));
+      constellation.add_edge(i+9, i+8, calculate_distance(constellation.get_vertex(i+9), constellation.get_vertex(i+8)));
+      constellation.add_edge(i+16, i+17, calculate_distance(constellation.get_vertex(i+16), constellation.get_vertex(i+17)));
+      constellation.add_edge(i+17, i+16, calculate_distance(constellation.get_vertex(i+17), constellation.get_vertex(i+16)));
+      // Vertical links
+      constellation.add_edge(i+8, i, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i)));
+      constellation.add_edge(i, i+8, calculate_distance(constellation.get_vertex(i), constellation.get_vertex(i+8)));
+      constellation.add_edge(i+8, i+16, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i+16)));
+      constellation.add_edge(i+16, i+8, calculate_distance(constellation.get_vertex(i+16), constellation.get_vertex(i+8)));
+     }
+     // Final horizonal and vertical links (back to front, front to back)
+     constellation.add_edge(0, 7, calculate_distance(constellation.get_vertex(0), constellation.get_vertex(7)));
+     constellation.add_edge(7, 0, calculate_distance(constellation.get_vertex(7), constellation.get_vertex(0)));
+     constellation.add_edge(8, 15, calculate_distance(constellation.get_vertex(8), constellation.get_vertex(15)));
+     constellation.add_edge(15, 8, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(8)));
+     constellation.add_edge(16, 23, calculate_distance(constellation.get_vertex(16), constellation.get_vertex(23)));
+     constellation.add_edge(23, 16, calculate_distance(constellation.get_vertex(23), constellation.get_vertex(16)));
+     constellation.add_edge(7, 15, calculate_distance(constellation.get_vertex(7), constellation.get_vertex(15)));
+     constellation.add_edge(15, 7, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(7)));
+     constellation.add_edge(15, 23, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(23)));
+     constellation.add_edge(23, 15, calculate_distance(constellation.get_vertex(23), constellation.get_vertex(15)));
+}
+
+void update_edges(Graph_Sat &constellation)
+{
+     // Update all edges between satellites
+     for(int i = 0; i < 7; i ++)
+     {
+       // Horizontal links
+      constellation.set_edge_value(i, i+1, calculate_distance(constellation.get_vertex(i), constellation.get_vertex(i+i)));
+      constellation.set_edge_value(i+1, i, calculate_distance(constellation.get_vertex(i+1), constellation.get_vertex(i)));
+      constellation.set_edge_value(i+8, i+9, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i+9)));
+      constellation.set_edge_value(i+9, i+8, calculate_distance(constellation.get_vertex(i+9), constellation.get_vertex(i+8)));
+      constellation.set_edge_value(i+16, i+17, calculate_distance(constellation.get_vertex(i+16), constellation.get_vertex(i+17)));
+      constellation.set_edge_value(i+17, i+16, calculate_distance(constellation.get_vertex(i+17), constellation.get_vertex(i+16)));
+      // Vertical links
+      constellation.set_edge_value(i+8, i, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i)));
+      constellation.set_edge_value(i, i+8, calculate_distance(constellation.get_vertex(i), constellation.get_vertex(i+8)));
+      constellation.set_edge_value(i+8, i+16, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i+16)));
+      constellation.set_edge_value(i+16, i+8, calculate_distance(constellation.get_vertex(i+16), constellation.get_vertex(i+8)));
+     }
+     // Final horizonal and vertical links (back to front, front to back)
+     constellation.set_edge_value(0, 7, calculate_distance(constellation.get_vertex(0), constellation.get_vertex(7)));
+     constellation.set_edge_value(7, 0, calculate_distance(constellation.get_vertex(7), constellation.get_vertex(0)));
+     constellation.set_edge_value(8, 15, calculate_distance(constellation.get_vertex(8), constellation.get_vertex(15)));
+     constellation.set_edge_value(15, 8, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(8)));
+     constellation.set_edge_value(16, 23, calculate_distance(constellation.get_vertex(16), constellation.get_vertex(23)));
+     constellation.set_edge_value(23, 16, calculate_distance(constellation.get_vertex(23), constellation.get_vertex(16)));
+     constellation.set_edge_value(7, 15, calculate_distance(constellation.get_vertex(7), constellation.get_vertex(15)));
+     constellation.set_edge_value(15, 7, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(7)));
+     constellation.set_edge_value(15, 23, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(23)));
+     constellation.set_edge_value(23, 15, calculate_distance(constellation.get_vertex(23), constellation.get_vertex(15)));
 }
 
 int main() {
      Graph_Sat constellation;
 
-     // Instantiate Satellites
-     /*Satellite sat_1(1, 4, 3);
-     Satellite sat_2(1.5, 7, 3.3);
-     Satellite sat_3(5.4, 2.2, 2.9);
-     Satellite sat_4(9.3, 1.1, 0.2);
+	// Create satellites
+  double x,y,z;
+	for(int i = 0; i < 360; i+= 45)
+	{
+		// Satellites at latitude 30 degrees, altitude of 500 km, spaced 45 degrees from each other
+		x = round(5961*cos(i*M_PI/180));
+		y = round(5961*sin(i*M_PI/180));
+		z = 3420;
+		Satellite sat_1(x,y,z);
+		constellation.add_vertex(sat_1);
+	}
+	for(int i = 0; i < 360; i += 45)
+	{
+	 	// Equator Satellites, altitude of 500 km, spaced 45 degrees from each other
+	 	x = round(6878*cos(i*M_PI/180));
+		y = round(6878*sin(i*M_PI/180));
+		z = 0;
+		Satellite sat_2(x,y,z);
+		constellation.add_vertex(sat_2);
+	}
+	for(int i = 0; i < 360; i += 45)
+  {
+		// Satellites at latitude -30 degrees, altitude of 500 km, spaced 45 degrees from each other
+		x = round(5961*cos(i*M_PI/180));
+		y = round(5961*sin(i*M_PI/180));
+		z = -3420;
+		Satellite sat_3(x,y,z);
+		constellation.add_vertex(sat_3);
+	 }
 
-     // Add satellites to the constellation
-     constellation.add_vertex(sat_1);
-     constellation.add_vertex(sat_2);
-     constellation.add_vertex(sat_3);
-     constellation.add_vertex(sat_4);
-
-     // Add distances (edges)
-     constellation.add_edge(sat1, sat2, calculate_distance(sat_1, sat_2));
-     constellation.add_edge(sat1, sat3, calculate_distance(sat_1, sat_3));
-     constellation.add_edge(sat1, sat4, calculate_distance(sat_1, sat_4));
-     constellation.add_edge(sat3, sat2, calculate_distance(sat_3, sat_2));
-     constellation.add_edge(sat3, sat4, calculate_distance(sat_3, sat_4));
-     constellation.add_edge(sat2, sat4, calculate_distance(sat_3, sat_4));
-
-     // Instantiate Ground Stations
-     GroundStation gs_1(0, 0.5, 3);
-     GroundStation gs_2(-3.1, 1.1, 0);
-
-     // Updates the first satellite's location
-	 for (int i = 0; i < 10; ++i) {
-          std::cout << "\033[2J\033[1;1H";
-          std::cout << constellation << std::endl;
-          double curr_x = constellation.get_satellite_x(sat1) + pow(2, cos(constellation.get_satellite_x(sat1))); // example function
-          constellation.set_satellite_x(sat1, curr_x);
-          usleep(1000000);
-     }*/
-
-     Satellite sat_1(5, 5, 2);
-     Satellite sat_2(1, 4, 4);
-	 Satellite sat_3(5, 2, 3);
-
-     constellation.add_vertex(sat_1);
-     constellation.add_vertex(sat_2);
-	 constellation.add_vertex(sat_3);
-
-     constellation.add_edge(sat1 ,sat2, calculate_distance(sat_1, sat_2));
-	constellation.add_edge(sat1, sat3, calculate_distance(sat_1, sat_3));
-	constellation.add_edge(sat2, sat3, calculate_distance(sat_2, sat_3));
+   add_edges(constellation);
 
      time_t past, present;
 
@@ -71,25 +121,13 @@ int main() {
                std::cout << "\033[2J\033[1;1H";
                std::cout << constellation << std::endl << std::endl;
 
-               constellation.set_edge_value(sat1, sat2, calculate_distance(constellation.get_vertex(sat1), constellation.get_vertex(sat2)));
-     		constellation.set_edge_value(sat1, sat3, calculate_distance(constellation.get_vertex(sat1), constellation.get_vertex(sat3)));
-     		constellation.set_edge_value(sat2, sat3, calculate_distance(constellation.get_vertex(sat2), constellation.get_vertex(sat3)));
-               //constellation.Dijkstra(sat2);
+               // Orbit Calculations Here
+               // *
+               // *
+               // *
+               // *
 
-               // Satellite 1 location
-               constellation.set_satellite_x(sat1, sqrt(50) * cos(t));
-               constellation.set_satellite_y(sat1, sqrt(50) * sin(t));
-               constellation.set_satellite_z(sat1, cos(t) * 2 * sqrt(2));
-
-               // Satelllite 2 location
-               constellation.set_satellite_x(sat2, sqrt(17) * cos(t));
-               constellation.set_satellite_y(sat2, sqrt(17) * sin(t));
-               constellation.set_satellite_z(sat2, 4 * sqrt(17) * cos(t));
-
-     		// Satellite 3 location
-     		constellation.set_satellite_x(sat3, sqrt(29) * cos(t));
-     		constellation.set_satellite_y(sat3, sqrt(29) * sin(t));
-     	     constellation.set_satellite_z(sat3, sqrt(29) * 3 / 5 * cos(t));
+               update_edges(constellation);
           }
      }
 
