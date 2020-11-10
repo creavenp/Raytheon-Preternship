@@ -39,9 +39,9 @@ class Graph_Sat {
 		  {
 				if (origin < vertices.length() && destin < vertices.length())
 				{
-		  			double x_diff = vertices[origin].get_vertex_value().get_x() - vertices[destin].get_vertex_value.get_x();
-		  			double y_diff = vertices[origin].get_vertex_value().get_y() - vertices[destin].get_vertex_value.get_y();
-		  			double z_diff = vertices[origin].get_vertex_value().get_z() - vertices[destin].get_vertex_value.get_z();
+		  			double x_diff = vertices[origin].get_vertex_value().get_x() - vertices[destin].get_vertex_value().get_x();
+		  			double y_diff = vertices[origin].get_vertex_value().get_y() - vertices[destin].get_vertex_value().get_y();
+		  			double z_diff = vertices[origin].get_vertex_value().get_z() - vertices[destin].get_vertex_value().get_z();
 					double sum = pow(x_diff, 2) + pow(y_diff, 2) + pow(z_diff, 2);
 					double weight = sqrt(sum);
 					add_edge(origin, destin, weight);
@@ -108,9 +108,9 @@ class Graph_Sat {
 		  {
 		  		if(origin < vertices.length() && destin < vertices.length())
 				{
-		  			double x_diff = vertices[origin].get_vertex_value().get_x() - vertices[destin].get_vertex_value.get_x();
-		  			double y_diff = vertices[origin].get_vertex_value().get_y() - vertices[destin].get_vertex_value.get_y();
-		  			double z_diff = vertices[origin].get_vertex_value().get_z() - vertices[destin].get_vertex_value.get_z();
+		  			double x_diff = vertices[origin].get_vertex_value().get_x() - vertices[destin].get_vertex_value().get_x();
+		  			double y_diff = vertices[origin].get_vertex_value().get_y() - vertices[destin].get_vertex_value().get_y();
+		  			double z_diff = vertices[origin].get_vertex_value().get_z() - vertices[destin].get_vertex_value().get_z();
 					double sum = pow(x_diff, 2) + pow(y_diff, 2) + pow(z_diff, 2);
 					double weight = sqrt(sum);
 					set_edge_value(origin, destin, weight);

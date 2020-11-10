@@ -19,29 +19,29 @@ void add_edges(Graph_Sat &constellation)
      for(int i = 0; i < 7; i ++)
      {
        // Horizontal links
-      constellation.add_edge(i, i+1, calculate_distance(constellation.get_vertex(i), constellation.get_vertex(i+i)));
-      constellation.add_edge(i+1, i, calculate_distance(constellation.get_vertex(i+1), constellation.get_vertex(i)));
-      constellation.add_edge(i+8, i+9, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i+9)));
-      constellation.add_edge(i+9, i+8, calculate_distance(constellation.get_vertex(i+9), constellation.get_vertex(i+8)));
-      constellation.add_edge(i+16, i+17, calculate_distance(constellation.get_vertex(i+16), constellation.get_vertex(i+17)));
-      constellation.add_edge(i+17, i+16, calculate_distance(constellation.get_vertex(i+17), constellation.get_vertex(i+16)));
+      constellation.add_edge(i, i+1);
+      constellation.add_edge(i+1, i);
+      constellation.add_edge(i+8, i+9);
+      constellation.add_edge(i+9, i+8);
+      constellation.add_edge(i+16, i+17);
+      constellation.add_edge(i+17, i+16);
       // Vertical links
-      constellation.add_edge(i+8, i, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i)));
-      constellation.add_edge(i, i+8, calculate_distance(constellation.get_vertex(i), constellation.get_vertex(i+8)));
-      constellation.add_edge(i+8, i+16, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i+16)));
-      constellation.add_edge(i+16, i+8, calculate_distance(constellation.get_vertex(i+16), constellation.get_vertex(i+8)));
+      constellation.add_edge(i+8, i);
+      constellation.add_edge(i, i+8);
+      constellation.add_edge(i+8, i+16);
+      constellation.add_edge(i+16, i+8);
      }
      // Final horizonal and vertical links (back to front, front to back)
-     constellation.add_edge(0, 7, calculate_distance(constellation.get_vertex(0), constellation.get_vertex(7)));
-     constellation.add_edge(7, 0, calculate_distance(constellation.get_vertex(7), constellation.get_vertex(0)));
-     constellation.add_edge(8, 15, calculate_distance(constellation.get_vertex(8), constellation.get_vertex(15)));
-     constellation.add_edge(15, 8, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(8)));
-     constellation.add_edge(16, 23, calculate_distance(constellation.get_vertex(16), constellation.get_vertex(23)));
-     constellation.add_edge(23, 16, calculate_distance(constellation.get_vertex(23), constellation.get_vertex(16)));
-     constellation.add_edge(7, 15, calculate_distance(constellation.get_vertex(7), constellation.get_vertex(15)));
-     constellation.add_edge(15, 7, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(7)));
-     constellation.add_edge(15, 23, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(23)));
-     constellation.add_edge(23, 15, calculate_distance(constellation.get_vertex(23), constellation.get_vertex(15)));
+     constellation.add_edge(0, 7);
+     constellation.add_edge(7, 0);
+     constellation.add_edge(8, 15);
+     constellation.add_edge(15, 8);
+     constellation.add_edge(16, 23);
+     constellation.add_edge(23, 16);
+     constellation.add_edge(7, 15);
+     constellation.add_edge(15, 7);
+     constellation.add_edge(15, 23);
+     constellation.add_edge(23, 15);
 }
 
 void update_edges(Graph_Sat &constellation)
@@ -50,29 +50,29 @@ void update_edges(Graph_Sat &constellation)
      for(int i = 0; i < 7; i ++)
      {
        // Horizontal links
-      constellation.set_edge_value(i, i+1, calculate_distance(constellation.get_vertex(i), constellation.get_vertex(i+i)));
-      constellation.set_edge_value(i+1, i, calculate_distance(constellation.get_vertex(i+1), constellation.get_vertex(i)));
-      constellation.set_edge_value(i+8, i+9, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i+9)));
-      constellation.set_edge_value(i+9, i+8, calculate_distance(constellation.get_vertex(i+9), constellation.get_vertex(i+8)));
-      constellation.set_edge_value(i+16, i+17, calculate_distance(constellation.get_vertex(i+16), constellation.get_vertex(i+17)));
-      constellation.set_edge_value(i+17, i+16, calculate_distance(constellation.get_vertex(i+17), constellation.get_vertex(i+16)));
+      constellation.set_edge_value(i, i+1);
+      constellation.set_edge_value(i+1, i);
+      constellation.set_edge_value(i+8, i+9);
+      constellation.set_edge_value(i+9, i+8);
+      constellation.set_edge_value(i+16, i+17);
+      constellation.set_edge_value(i+17, i+16);
       // Vertical links
-      constellation.set_edge_value(i+8, i, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i)));
-      constellation.set_edge_value(i, i+8, calculate_distance(constellation.get_vertex(i), constellation.get_vertex(i+8)));
-      constellation.set_edge_value(i+8, i+16, calculate_distance(constellation.get_vertex(i+8), constellation.get_vertex(i+16)));
-      constellation.set_edge_value(i+16, i+8, calculate_distance(constellation.get_vertex(i+16), constellation.get_vertex(i+8)));
+      constellation.set_edge_value(i+8, i);
+      constellation.set_edge_value(i, i+8);
+      constellation.set_edge_value(i+8, i+16);
+      constellation.set_edge_value(i+16, i+8);
      }
      // Final horizonal and vertical links (back to front, front to back)
-     constellation.set_edge_value(0, 7, calculate_distance(constellation.get_vertex(0), constellation.get_vertex(7)));
-     constellation.set_edge_value(7, 0, calculate_distance(constellation.get_vertex(7), constellation.get_vertex(0)));
-     constellation.set_edge_value(8, 15, calculate_distance(constellation.get_vertex(8), constellation.get_vertex(15)));
-     constellation.set_edge_value(15, 8, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(8)));
-     constellation.set_edge_value(16, 23, calculate_distance(constellation.get_vertex(16), constellation.get_vertex(23)));
-     constellation.set_edge_value(23, 16, calculate_distance(constellation.get_vertex(23), constellation.get_vertex(16)));
-     constellation.set_edge_value(7, 15, calculate_distance(constellation.get_vertex(7), constellation.get_vertex(15)));
-     constellation.set_edge_value(15, 7, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(7)));
-     constellation.set_edge_value(15, 23, calculate_distance(constellation.get_vertex(15), constellation.get_vertex(23)));
-     constellation.set_edge_value(23, 15, calculate_distance(constellation.get_vertex(23), constellation.get_vertex(15)));
+     constellation.set_edge_value(0, 7);
+     constellation.set_edge_value(7, 0);
+     constellation.set_edge_value(8, 15);
+     constellation.set_edge_value(15, 8);
+     constellation.set_edge_value(16, 23);
+     constellation.set_edge_value(23, 16);
+     constellation.set_edge_value(7, 15);
+     constellation.set_edge_value(15, 7);
+     constellation.set_edge_value(15, 23);
+     constellation.set_edge_value(23, 15);
 }
 
 int main() {
