@@ -136,7 +136,7 @@ class Vertex{
 		{
 			if(index < edges.length())
 			{
-				return edges[i].destin;
+				return edges[index].destin;
 			}
 			return -1;
 		}
