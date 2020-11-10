@@ -4,6 +4,7 @@
 #include "Vertex.h"
 #include "DynArr.h"
 #include "Stack.h"
+#include <math.h>
 #include <iostream>
 
 class Graph_Sat {
@@ -32,6 +33,20 @@ class Graph_Sat {
                     vertices[origin].add_edge(destin, weight);
                }
           }
+
+		  // Add edge without weight (calculate distance between satellites
+		  void add_edge(unsigned int origin, unsigned int destin)
+		  {
+				if (origin < vertices.length() && destin < vertices.length())
+				{
+		  			double x_diff = vertices[origin].get_vertex_value().get_x() - vertices[destin].get_vertex_value.get_x();
+		  			double y_diff = vertices[origin].get_vertex_value().get_y() - vertices[destin].get_vertex_value.get_y();
+		  			double z_diff = vertices[origin].get_vertex_value().get_z() - vertices[destin].get_vertex_value.get_z();
+					double sum = pow(x_diff, 2) + pow(y_diff, 2) + pow(z_diff, 2);
+					double weight = sqrt(sum);
+					add_edge(origin, destin, weight);
+				}
+		  }
 
           // Return x value of certain vertex
           double get_satellite_x(unsigned int vertex) {
@@ -87,6 +102,20 @@ class Graph_Sat {
                     vertices[origin].set_edge_value(destin, weight);
                }
           }
+		  
+		  // Set edge value without weight (calculate distance between satellites
+		  void set_edge_value(unsigned int origin, unsigned int destin)
+		  {
+		  		if(origin < vertices.length() && destin < vertices.length())
+				{
+		  			double x_diff = vertices[origin].get_vertex_value().get_x() - vertices[destin].get_vertex_value.get_x();
+		  			double y_diff = vertices[origin].get_vertex_value().get_y() - vertices[destin].get_vertex_value.get_y();
+		  			double z_diff = vertices[origin].get_vertex_value().get_z() - vertices[destin].get_vertex_value.get_z();
+					double sum = pow(x_diff, 2) + pow(y_diff, 2) + pow(z_diff, 2);
+					double weight = sqrt(sum);
+					set_edge_value(origin, destin, weight);
+				}
+		  }
 
           // Dijkstra's Algorithm
 		void Dijkstra( unsigned int destin ){
