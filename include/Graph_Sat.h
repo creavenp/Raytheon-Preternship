@@ -117,6 +117,17 @@ class Graph_Sat {
 				}
 		  }
 
+		  void update_edges()
+		  {
+		  		for(int i = 0; i < vertices.length(); i ++)
+				{
+					for(int j = 0; j < vertices[i].num_edges(); j ++)
+					{
+						set_edge_value(i, vertices[i].get_edge_destin(j));
+					}
+				}
+		  }
+
           // Dijkstra's Algorithm
 		void Dijkstra( unsigned int destin ){
 

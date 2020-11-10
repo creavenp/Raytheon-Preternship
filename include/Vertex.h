@@ -132,6 +132,15 @@ class Vertex{
 			return (unsigned int)edges.length();
 		}
 
+		int get_edge_destin(int index)
+		{
+			if(index < edges.length())
+			{
+				return edges[i].destin;
+			}
+			return -1;
+		}
+
 		// Clear the vertex
 		void lazy_delete(){
 
