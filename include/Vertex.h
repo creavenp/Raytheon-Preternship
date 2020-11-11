@@ -132,7 +132,7 @@ class Vertex{
 			return (unsigned int)edges.length();
 		}
 
-		int get_edge_destin(int index)
+		int get_edge_destin(unsigned int index)
 		{
 			if(index < edges.length())
 			{

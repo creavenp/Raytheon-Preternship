@@ -1,6 +1,8 @@
 #include "../include/Project.h"
 
-enum sat_id {sat1, sat2, sat3, sat4};
+enum sat_id {sat1, sat2, sat3, sat4, sat5, sat6, sat7, sat8,
+             sat9, sat10, sat11, sat12, sat13, sat14, sat15, sat16,
+             sat17, sat18, sat19, sat20, sat21, sat22, sat23, sat24};
 
 #define c 300000000
 
@@ -16,7 +18,7 @@ void add_edges(Graph_Sat &constellation)
 {
      // Add viable edges between satellites
      // Satellites can communicate with the one in front of it, behind it, above it, and below it
-     for(int i = 0; i < 7; i ++)
+     for(unsigned int i = 0; i < 7; i ++)
      {
        // Horizontal links
       constellation.add_edge(i, i+1);
@@ -47,7 +49,7 @@ void add_edges(Graph_Sat &constellation)
 void update_edges(Graph_Sat &constellation)
 {
      // Update all edges between satellites
-     for(int i = 0; i < 7; i ++)
+     for(unsigned int i = 0; i < 7; i ++)
      {
        // Horizontal links
       constellation.set_edge_value(i, i+1);
@@ -75,11 +77,44 @@ void update_edges(Graph_Sat &constellation)
      constellation.set_edge_value(23, 15);
 }
 
+void orbit(double t, Graph_Sat& constellation) {
+
+     // z = 3420 km Satellites
+     constellation.set_satellite_xyz(sat1, cos(t) * 5961, sin(t) * 5961, 3420);
+     constellation.set_satellite_xyz(sat2, cos(t) * 5961, sin(t) * 5961, 3420);
+     constellation.set_satellite_xyz(sat3, cos(t) * 5961, sin(t) * 5961, 3420);
+     constellation.set_satellite_xyz(sat4, cos(t) * 5961, sin(t) * 5961, 3420);
+     constellation.set_satellite_xyz(sat5, cos(t) * 5961, sin(t) * 5961, 3420);
+     constellation.set_satellite_xyz(sat6, cos(t) * 5961, sin(t) * 5961, 3420);
+     constellation.set_satellite_xyz(sat7, cos(t) * 5961, sin(t) * 5961, 3420);
+     constellation.set_satellite_xyz(sat8, cos(t) * 5961, sin(t) * 5961, 3420);
+
+     // z = 0 km Satellites
+     constellation.set_satellite_xyz(sat9, cos(t) * 6878, sin(t) * 6878, 0);
+     constellation.set_satellite_xyz(sat10, cos(t) * 6878, sin(t) * 6878, 0);
+     constellation.set_satellite_xyz(sat11, cos(t) * 6878, sin(t) * 6878, 0);
+     constellation.set_satellite_xyz(sat12, cos(t) * 6878, sin(t) * 6878, 0);
+     constellation.set_satellite_xyz(sat13, cos(t) * 6878, sin(t) * 6878, 0);
+     constellation.set_satellite_xyz(sat14, cos(t) * 6878, sin(t) * 6878, 0);
+     constellation.set_satellite_xyz(sat15, cos(t) * 6878, sin(t) * 6878, 0);
+     constellation.set_satellite_xyz(sat16, cos(t) * 6878, sin(t) * 6878, 0);
+
+     // z = -3420 km Satellites
+     constellation.set_satellite_xyz(sat17, cos(t) * 5961, sin(t) * 5961, -3420);
+     constellation.set_satellite_xyz(sat18, cos(t) * 5961, sin(t) * 5961, -3420);
+     constellation.set_satellite_xyz(sat19, cos(t) * 5961, sin(t) * 5961, -3420);
+     constellation.set_satellite_xyz(sat20, cos(t) * 5961, sin(t) * 5961, -3420);
+     constellation.set_satellite_xyz(sat21, cos(t) * 5961, sin(t) * 5961, -3420);
+     constellation.set_satellite_xyz(sat22, cos(t) * 5961, sin(t) * 5961, -3420);
+     constellation.set_satellite_xyz(sat23, cos(t) * 5961, sin(t) * 5961, -3420);
+     constellation.set_satellite_xyz(sat24, cos(t) * 5961, sin(t) * 5961, -3420);
+}
+
 int main() {
      Graph_Sat constellation;
 
 	// Create satellites
-  double x,y,z;
+     double x,y,z;
 	for(int i = 0; i < 360; i+= 45)
 	{
 		// Satellites at latitude 30 degrees, altitude of 500 km, spaced 45 degrees from each other
@@ -99,8 +134,8 @@ int main() {
 		constellation.add_vertex(sat_2);
 	}
 	for(int i = 0; i < 360; i += 45)
-  {
-		// Satellites at latitude -30 degrees, altitude of 500 km, spaced 45 degrees from each other
+     {
+          // Satellites at latitude -30 degrees, altitude of 500 km, spaced 45 degrees from each other
 		x = round(5961*cos(i*M_PI/180));
 		y = round(5961*sin(i*M_PI/180));
 		z = -3420;
@@ -108,27 +143,18 @@ int main() {
 		constellation.add_vertex(sat_3);
 	 }
 
-   add_edges(constellation);
+      add_edges(constellation);
 
-     time_t past, present;
+      time_t past, present;
 
-     for (double t = 0; t < 6 * M_PI; t += 0.05) { // Three revolutions
-
-          time(&past);
-          sleep(1);
-          time(&present);
-          if (difftime(present, past) == 1) {
-               std::cout << "\033[2J\033[1;1H";
-               std::cout << constellation << std::endl << std::endl;
-
-               // Orbit Calculations Here
-               // *
-               // *
-               // *
-               // *
-
-               update_edges(constellation);
-          }
-     }
-
+      for (double t = 0; t < 2 * M_PI; t += 0.05) { // One revolution
+           time(&past);
+           sleep(1);
+           time(&present);
+           if (difftime(present, past) == 1) {
+                std::cout << "\033[2J\033[1;1H";
+                std::cout << constellation << std::endl << std::endl;
+                orbit(t, constellation);
+           }
+      }
 }

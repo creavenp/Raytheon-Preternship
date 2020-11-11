@@ -97,12 +97,18 @@ class Graph_Sat {
                }
           }
 
+          void set_satellite_xyz(unsigned int vertex, double x_in, double y_in, double z_in) {
+               if (vertex < vertices.length()) {
+                    vertices[vertex].get_vertex_value().set_coords(x_in, y_in, z_in);
+               }
+          }
+
           void set_edge_value(unsigned int origin, unsigned int destin, double weight) {
                if (origin < vertices.length() && destin < vertices.length()) {
                     vertices[origin].set_edge_value(destin, weight);
                }
           }
-		  
+
 		  // Set edge value without weight (calculate distance between satellites
 		  void set_edge_value(unsigned int origin, unsigned int destin)
 		  {
@@ -117,7 +123,7 @@ class Graph_Sat {
 				}
 		  }
 
-		  void update_edges()
+		  /*void update_edges()
 		  {
 		  		for(unsigned int i = 0; i < vertices.length(); i ++)
 				{
@@ -126,7 +132,7 @@ class Graph_Sat {
 						set_edge_value(i, vertices[i].get_edge_destin(j));
 					}
 				}
-		  }
+		  }*/
 
           // Dijkstra's Algorithm
 		void Dijkstra( unsigned int destin ){
