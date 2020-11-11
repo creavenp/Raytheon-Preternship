@@ -6,6 +6,7 @@
 #include "Stack.h"
 #include <math.h>
 #include <iostream>
+#include <stdlib.h>
 
 class Graph_Sat {
 
@@ -123,7 +124,7 @@ class Graph_Sat {
 				}
 		  }
 
-		  /*void update_edges()
+		  void update_edges()
 		  {
 		  		for(unsigned int i = 0; i < vertices.length(); i ++)
 				{
@@ -132,7 +133,7 @@ class Graph_Sat {
 						set_edge_value(i, vertices[i].get_edge_destin(j));
 					}
 				}
-		  }*/
+		  }
 
           // Dijkstra's Algorithm
 		void Dijkstra( unsigned int destin ){
@@ -238,10 +239,10 @@ class Graph_Sat {
           friend std::ostream& operator<<(std::ostream& output, const Graph_Sat& theGraph) {
                for (unsigned int i = 0; i < theGraph.vertices.length(); ++i) {
                     if (i < 9) {
-                         output << "Sat (" << i + 1 << ")  : " << theGraph.vertices[i] << std::endl;
+                         output << "Sat (" << i << ")  : " << theGraph.vertices[i] << std::endl;
                     }
                     else {
-                         output << "Sat (" << i + 1 << ") : " << theGraph.vertices[i] << std::endl;
+                         output << "Sat (" << i << ") : " << theGraph.vertices[i] << std::endl;
                     }
                }
                return output;
