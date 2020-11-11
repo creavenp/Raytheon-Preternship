@@ -135,8 +135,10 @@ class Graph_Sat {
 				}
 		  }
 
+            void Dijkstra(unsigned int origin, unsigned destin);
+
           // Dijkstra's Algorithm
-		void Dijkstra( unsigned int destin ){
+		/*void Dijkstra( unsigned int destin ){
 
 
 			if( destin >= vertices.length() || vertices.length() == 0 ){
@@ -146,7 +148,7 @@ class Graph_Sat {
 
 			}
 
-			/* Initialize the Elements */
+			// Initialize the Elements
 			Stack< unsigned int > theStack;
 			DynArr< unsigned int > parents( vertices.length() );
 			DynArr< double > distance;
@@ -154,7 +156,7 @@ class Graph_Sat {
 
 			bool found = false;
 
-			/* Initialize the origin */
+			// Initialize the origin
 			theStack.push( 0 );
 			distance[0] = 0;
 			parents[0] = 2147483647;
@@ -165,7 +167,7 @@ class Graph_Sat {
 
 			if( !found ){
 
-				/* Initialize all the distances after the origin */
+				// Initialize all the distances after the origin
 				for( unsigned int iter = 1; iter < vertices.length(); iter++ ){
 					// Make it the largest possible int
 					distance[ iter ] = 2147483647;
@@ -173,7 +175,7 @@ class Graph_Sat {
 					parents[ iter ] = 2147483647;
 				}
 
-				/* Run the shortest path algorithm */
+				// Run the shortest path algorithm
 				while( !theStack.empty() ){
 
 					// Get the top element of the stack and pop
@@ -233,7 +235,7 @@ class Graph_Sat {
 				std::cout << std::endl << "Distance: "<< distance[destin] << std::endl;
 				std::cout << std::endl;
 			}
-		}
+		}*/
 
           // Overloaded operator
           friend std::ostream& operator<<(std::ostream& output, const Graph_Sat& theGraph) {

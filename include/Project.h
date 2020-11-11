@@ -8,9 +8,10 @@
 #include <math.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdio.h>
 
-double calculate_distance(Structure s1, Structure s2);
-void add_edges(Graph_Sat &constellation);
-void update_edges(Graph_Sat &constellation);
+void add_edges(Graph_Sat& constellation);
+void add_noise(unsigned int num, Graph_Sat& constellation);
+void orbit(double t, Graph_Sat& constellation);
 
 #endif

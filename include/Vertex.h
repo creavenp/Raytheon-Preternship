@@ -132,13 +132,14 @@ class Vertex{
 			return (unsigned int)edges.length();
 		}
 
-		int get_edge_destin(unsigned int index)
+		unsigned int get_edge_destin(unsigned int index)
 		{
 			if(index < edges.length())
 			{
 				return edges[index].destin;
 			}
-			return -1;
+			// will never hit this case
+			return 100000000;
 		}
 
 		// Clear the vertex
