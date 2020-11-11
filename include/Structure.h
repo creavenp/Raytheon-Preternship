@@ -2,6 +2,7 @@
 #define STRUCTURE_H
 
 #include <iostream>
+#include <iomanip>
 
 class Structure {
 
@@ -53,7 +54,9 @@ class Structure {
 
 		// Overloaded << operator
 		friend std::ostream& operator<<(std::ostream& output, const Structure& theStructure){
-		     output << "Satellite at (" << theStructure.get_x() << ", " << theStructure.get_y() << ", " << theStructure.get_z() << ")";
+               output << std::fixed;
+               output << std::setprecision(1);
+		     output << "[x: " << theStructure.get_x() << ", " << " y: " << theStructure.get_y() << ", " << "z: " << theStructure.get_z() << "]";
 			return output;
 		}
 };

@@ -238,7 +238,12 @@ class Graph_Sat {
           // Overloaded operator
           friend std::ostream& operator<<(std::ostream& output, const Graph_Sat& theGraph) {
                for (unsigned int i = 0; i < theGraph.vertices.length(); ++i) {
-                    output << i << ": " << theGraph.vertices[i] << std::endl;
+                    if (i < 9) {
+                         output << "Sat (" << i + 1 << ") :  " << theGraph.vertices[i] << std::endl;
+                    }
+                    else {
+                         output << "Sat (" << i + 1 << ") : " << theGraph.vertices[i] << std::endl;
+                    }
                }
                return output;
           }

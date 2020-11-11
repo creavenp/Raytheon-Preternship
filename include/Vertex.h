@@ -161,7 +161,7 @@ class Vertex{
 			if( theVert.valid ){
 
 				// Print the data element first
-				output << "[" << theVert.data << ": ";
+				output << theVert.data << ": ";
 
 				//
 				for( unsigned int iter = 0; iter < theVert.edges.length(); iter++ ){
@@ -173,7 +173,6 @@ class Vertex{
 					output << theVert.edges[iter].weight << "} ";
 
 				}
-				output << "]";
 
 			}
 			// If the vertex is not valid, indicate Lazy Deletion
