@@ -161,7 +161,7 @@ class Vertex{
 			if( theVert.valid ){
 
 				// Print the data element first
-				output << theVert.data << ": ";
+				output << theVert.data << ":    ";
 
 				for( unsigned int iter = 0; iter < theVert.edges.length(); iter++ ){
 

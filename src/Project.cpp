@@ -145,16 +145,11 @@ int main() {
 
       add_edges(constellation);
 
-      time_t past, present;
-
-      for (double t = 0; t < 2 * M_PI; t += 0.05) { // One revolution
-           time(&past);
-           sleep(1);
-           time(&present);
-           if (difftime(present, past) == 1) {
-                std::cout << "\033[2J\033[1;1H";
-                std::cout << constellation << std::endl << std::endl;
-                orbit(t, constellation);
-           }
+      for (double t = 0; t < 2 * M_PI; t += 0.01) { // One revolution
+           usleep(100000);
+           std::cout << "\033[2J\033[1;1H";
+           std::cout << constellation << std::endl << std::endl;
+           orbit(t, constellation);
+           update_edges(constellation);
       }
 }

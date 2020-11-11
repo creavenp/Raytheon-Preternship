@@ -232,7 +232,6 @@ class Graph_Sat {
 				std::cout << std::endl << "Distance: "<< distance[destin] << std::endl;
 				std::cout << std::endl;
 			}
-
 		}
 
           // Overloaded operator
