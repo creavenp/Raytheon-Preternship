@@ -163,7 +163,6 @@ class Vertex{
 				// Print the data element first
 				output << theVert.data << ": ";
 
-				//
 				for( unsigned int iter = 0; iter < theVert.edges.length(); iter++ ){
 
 					// Print the destination
