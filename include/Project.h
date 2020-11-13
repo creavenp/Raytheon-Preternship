@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <float.h>
+#include <thread>
 
 // Helper functions for Project
 void add_edges(Graph_Sat& constellation);
