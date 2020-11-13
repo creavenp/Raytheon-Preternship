@@ -6,6 +6,15 @@ enum sat_id {sat1, sat2, sat3, sat4, sat5, sat6, sat7, sat8,
 
 #define SPEED_OF_LIGHT 300000000
 
+double calculate_distance(Structure struct1, Structure struct2) {
+     double x_diff = struct1.get_x() - struct2.get_x();
+     double y_diff = struct1.get_y() - struct2.get_y();
+     double z_diff = struct1.get_z() - struct2.get_z();
+     double sum = pow(x_diff, 2) + pow(y_diff, 2) + pow(z_diff, 2);
+     double dist = sqrt(sum);
+     return dist;
+}
+
 void add_edges(Graph_Sat& constellation)
 {
      // Add viable edges between satellites
@@ -104,17 +113,17 @@ int main() {
 
 
        // Sets satellites in motion for one orbit and displays location data
-       for (double t = 0; t < 2 * M_PI; t += 0.01) {
+       /*for (double t = 0; t < 2 * M_PI; t += 0.01) {
            usleep(100000);
            std::cout << "\033[2J\033[1;1H";
            std::cout << "Press Space determine latency between ground stations:" << std::endl << std::endl;
            std::cout << constellation << std::endl;
            orbit(t, constellation);
            constellation.update_edges();
-      }
+      }*/
 
       // Once paused
-      /*bool exit = false;
+      bool exit = false;
       while (!exit) {
            int choice;
            std::cout << "-------------------------------------------------------------------------";
@@ -157,7 +166,7 @@ int main() {
                      std::cout << std::endl;
                 }
 
-                int select_1, select_2;
+                unsigned int select_1, select_2;
                 std::cout << std::endl << "What ground stations would you like to connect? ";
                 std::cout << "Ground Station (origin): ";
                 std::cin >> select_1;
@@ -166,7 +175,19 @@ int main() {
                 std::cout << std::endl;
 
                 // Find satellite that is the closest to each ground station
+                // Select 1
+                double smallest_dist = DBL_MAX;
+                unsigned int closest_sat;
+                for (unsigned int i = 0; i < constellation.get_vertices().length(); ++i) {
+                     double current_dist = calculate_distance(constellation.get_vertex(i), stations[select_1 - 1]);
+                     if (current_dist < smallest_dist) {
+                          smallest_dist = current_dist;
+                          closest_sat = i;
+                     }
+                }
 
+                std::cout << "Closest sat: " << closest_sat << std::endl;
+                std::cout << "Dist: " << smallest_dist << std::endl;
 
                 // Dijkstra(select_1 - 1, select_2 - 1);
            }
@@ -174,6 +195,5 @@ int main() {
            else {
                 exit = true;
            }
-      }*/
-
+      }
 }

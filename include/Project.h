@@ -9,6 +9,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <float.h>
 
 void add_edges(Graph_Sat& constellation);
 void add_noise(unsigned int num, Graph_Sat& constellation);

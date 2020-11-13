@@ -12,7 +12,7 @@ class Graph_Sat {
 
      private:
 
-          DynArr<Vertex<Satellite>> vertices; // Adjacency calculate_distance
+          DynArr < Vertex<Satellite> > vertices; // Adjacency calculate_distance
 
      public:
 
@@ -26,6 +26,11 @@ class Graph_Sat {
 
           Satellite get_vertex(unsigned int vertex) {
                return vertices[vertex].get_vertex_value();
+          }
+
+          // Get dynamic array of vertices
+          DynArr< Vertex<Satellite> > get_vertices() {
+               return vertices;
           }
 
           // Add Edge from Origin to Destination, with weight
