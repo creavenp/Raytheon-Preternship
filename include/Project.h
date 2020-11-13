@@ -1,6 +1,7 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
+// Project dependencies
 #include "../include/Structure.h"
 #include "../include/Satellite.h"
 #include "../include/GroundStation.h"
@@ -11,6 +12,7 @@
 #include <stdio.h>
 #include <float.h>
 
+// Helper functions for Project
 void add_edges(Graph_Sat& constellation);
 void add_noise(unsigned int num, Graph_Sat& constellation);
 void orbit(double t, Graph_Sat& constellation);

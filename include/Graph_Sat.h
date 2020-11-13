@@ -16,9 +16,12 @@ private:
 
 public:
 
+	/*** Basic Graph Features ***/
+	
 	// Constructor
 	Graph_Sat() : vertices() {}
 
+	
 	void add_vertex(Satellite vertexData) {
 		Vertex<Satellite> theVertex(vertexData);
 		vertices.push_back(theVertex);
@@ -27,7 +30,15 @@ public:
 	Satellite get_vertex(unsigned int vertex) {
 		return vertices[vertex].get_vertex_value();
 	}
+	
+	// Get dynamic array of vertices
+	DynArr< Vertex<Satellite> > get_vertices() {
+		return vertices;
+	}
 
+	
+	/*** Edge Manipulation ***/
+	
 	// Add Edge from Origin to Destination, with weight
 	void add_edge(unsigned int origin, unsigned int destin, double weight) {
 		if (origin < vertices.length() && destin < vertices.length()) {
@@ -35,7 +46,7 @@ public:
 		}
 	}
 
-	// Add edge without weight (calculate distance between satellites
+	// Add edge without weight (calculate distance using the distance formula)
 	void add_edge(unsigned int origin, unsigned int destin)
 	{
 		if (origin < vertices.length() && destin < vertices.length())
@@ -48,62 +59,8 @@ public:
 			add_edge(origin, destin, weight);
 		}
 	}
-
-	// Return x value of certain vertex
-	double get_satellite_x(unsigned int vertex) {
-		double x;
-		if (vertex < vertices.length()) {
-			x = vertices[vertex].get_vertex_value().get_x();
-			return x;
-		}
-		// We will prevent this return from ever happening
-		return -1;
-	}
-
-	double get_satellite_y(unsigned int vertex) {
-		double y;
-		if (vertex < vertices.length()) {
-			y = vertices[vertex].get_vertex_value().get_y();
-			return y;
-		}
-		// We will prevent this return from ever happening
-		return -1;
-	}
-
-	double get_satellite_z(unsigned int vertex) {
-		double z;
-		if (vertex < vertices.length()) {
-			z = vertices[vertex].get_vertex_value().get_z();
-			return z;
-		}
-		// We will prevent this return from ever happening
-		return -1;
-	}
-
-	void set_satellite_x(unsigned int vertex, double x_in) {
-		if (vertex < vertices.length()) {
-			vertices[vertex].get_vertex_value().set_x(x_in);
-		}
-	}
-
-	void set_satellite_y(unsigned int vertex, double y_in) {
-		if (vertex < vertices.length()) {
-			vertices[vertex].get_vertex_value().set_y(y_in);
-		}
-	}
-
-	void set_satellite_z(unsigned int vertex, double z_in) {
-		if (vertex < vertices.length()) {
-			vertices[vertex].get_vertex_value().set_z(z_in);
-		}
-	}
-
-	void set_satellite_xyz(unsigned int vertex, double x_in, double y_in, double z_in) {
-		if (vertex < vertices.length()) {
-			vertices[vertex].get_vertex_value().set_coords(x_in, y_in, z_in);
-		}
-	}
-
+	
+	// Set the value of an edge with a specific weight
 	void set_edge_value(unsigned int origin, unsigned int destin, double weight) {
 		if (origin < vertices.length() && destin < vertices.length()) {
 			vertices[origin].set_edge_value(destin, weight);
@@ -124,6 +81,74 @@ public:
 		}
 	}
 
+	/*** Additional Satellite Getters ***/
+
+	// Return x value of certain vertex
+	double get_satellite_x(unsigned int vertex) {
+		double x;
+		if (vertex < vertices.length()) {
+			x = vertices[vertex].get_vertex_value().get_x();
+			return x;
+		}
+		// We will prevent this return from ever happening
+		return -1;
+	}
+
+	// Return y value of certain vertex
+	double get_satellite_y(unsigned int vertex) {
+		double y;
+		if (vertex < vertices.length()) {
+			y = vertices[vertex].get_vertex_value().get_y();
+			return y;
+		}
+		// We will prevent this return from ever happening
+		return -1;
+	}
+
+	// Return x value of certain vertex
+	double get_satellite_z(unsigned int vertex) {
+		double z;
+		if (vertex < vertices.length()) {
+			z = vertices[vertex].get_vertex_value().get_z();
+			return z;
+		}
+		// We will prevent this return from ever happening
+		return -1;
+	}
+
+	/*** Additional Satellite-Specific Setters ***/
+	
+	// Set x value of certain vertex
+	void set_satellite_x(unsigned int vertex, double x_in) {
+		if (vertex < vertices.length()) {
+			vertices[vertex].get_vertex_value().set_x(x_in);
+		}
+	}
+
+	// Set y value of certain vertex
+	void set_satellite_y(unsigned int vertex, double y_in) {
+		if (vertex < vertices.length()) {
+			vertices[vertex].get_vertex_value().set_y(y_in);
+		}
+	}
+
+	// Set y value of certain vertex
+	void set_satellite_z(unsigned int vertex, double z_in) {
+		if (vertex < vertices.length()) {
+			vertices[vertex].get_vertex_value().set_z(z_in);
+		}
+	}
+
+	// Set xyz values of certain vertex
+	void set_satellite_xyz(unsigned int vertex, double x_in, double y_in, double z_in) {
+		if (vertex < vertices.length()) {
+			vertices[vertex].get_vertex_value().set_coords(x_in, y_in, z_in);
+		}
+	}
+
+	/*** Graph Utility Functions ***/
+	
+	// Update each edge in the graph based on their current distances
 	void update_edges()
 	{
 		for(unsigned int i = 0; i < vertices.length(); i ++)
@@ -134,19 +159,14 @@ public:
 			}
 		}
 	}
-
-	/*void Dijskstra(unsigned int origin, unsigned int destin) {
-				// do stuff
-			}*/
-
-	/// Dijkstra's Algorithm
-	void Dijkstra( unsigned int origin, unsigned int destin, Stack<unsigned int> &finalPath ){
-
-
+	
+	// Dijkstra's Algorithm for calulating the shortest path between a specified origin and destination node
+	// If it finds a valid path, returns the distance (through a return statement) and the path to get there (through a Stack passed by reference)
+	double Dijkstra( unsigned int origin, unsigned int destin, Stack<unsigned int> &finalPath ){
 		if( origin >= vertices.length() || destin >= vertices.length() || vertices.length() == 0 ){
 
 			std::cout << "Invalid Inputs" << std::endl;
-			return;
+			return -1;
 
 		}
 
@@ -167,7 +187,6 @@ public:
 		}
 
 		if( !found ){
-
 			/* Initialize all the distances after the origin */
 			for( unsigned int iter = 0; iter < vertices.length(); iter++ ){
 				if(iter != origin)
@@ -181,20 +200,17 @@ public:
 
 			/* Run the shortest path algorithm */
 			while( !theStack.empty() ){
-
 				// Get the top element of the stack and pop
 				unsigned int index = theStack.top();
 				theStack.pop();
 
 				// Evaluate the edges from the vertex
 				for(unsigned int iter = 0; iter < vertices[ index ].num_edges(); iter++ ){
-
 					// Obtain the edge
 					Edge tempEdge = vertices[ index ].get_edge( iter );
 
 					// If the weight of the edge plus distance of the  distance is less than the destin weight
 					if( distance[ index ] + tempEdge.weight < distance[ tempEdge.destin ] ) {
-
 						// Update the distance
 						distance[ tempEdge.destin ] = distance[ index ] + tempEdge.weight;
 
@@ -206,7 +222,6 @@ public:
 
 							found = true;
 						}
-
 						theStack.push( tempEdge.destin );
 					}
 				}
@@ -215,15 +230,12 @@ public:
 
 		// Otherwise, go through the parents until we find the origin
 		if( found ){
-
 			unsigned int sentinel = destin;
 			finalPath.push( sentinel );		// Push the desination onto the stack
 
 			while( parents[sentinel] != -1 ){
-
 				finalPath.push( parents[sentinel] );	// Push the parent onto the stack
 				sentinel = parents[sentinel];			// Update the sentinel
-
 			}
 
 			// Stack contains the correct order
@@ -239,7 +251,7 @@ public:
 				*/
 
 			// The path stack is returned through the pass by ref
-			return disance[destin];
+			return distance[destin];
 		}
 	}
 

@@ -22,30 +22,41 @@ public:
 	// Virtual Destructor
 	virtual ~Structure() {}
 
+	/*** Getters ***/
+	
+	// Get x value
 	double get_x() const {
 		return x;
 	}
 
+	// Get y value
 	double get_y() const {
 		return y;
 	}
-
+	
+	// Get z value
 	double get_z() const {
 		return z;
 	}
 
+	/*** Setters ***/
+	
+	// Set x value
 	void set_x(double x_in) {
 		this -> x = x_in;
 	}
 
+	// Set y value
 	void set_y(double y_in) {
 		this -> y = y_in;
 	}
 
+	// Set z value
 	void set_z(double z_in) {
 		this -> z = z_in;
 	}
 
+	// Set xyz values
 	void set_coords(double x_in, double y_in, double z_in) {
 		this -> x = x_in;
 		this -> y = y_in;

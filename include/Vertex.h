@@ -169,8 +169,8 @@ public:
 				// Print the destination
 				output << "{" << theVert.edges[iter].destin << ", ";
 
-				// Print the weight
-				output << theVert.edges[iter].weight << "} ";
+				// Print the weight (Satellite distance specific)
+				output << theVert.edges[iter].weight << " km" << "} ";
 
 			}
 
