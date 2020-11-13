@@ -98,8 +98,10 @@ int main() {
        GroundStation gs_1(2900, 2000, 1000);
        GroundStation gs_2(-2500, 2300, -700);
 
-      // Create connections between Ground Stations and nearby Satellites
-      
+       DynArr<GroundStation> stations(0);
+       stations.push_back(gs_1);
+       stations.push_back(gs_2);
+
 
        // Sets satellites in motion for one orbit and displays location data
        for (double t = 0; t < 2 * M_PI; t += 0.01) {
@@ -111,5 +113,67 @@ int main() {
            constellation.update_edges();
       }
 
-      //onstellation.Dijkstra(sat2);
+      // Once paused
+      /*bool exit = false;
+      while (!exit) {
+           int choice;
+           std::cout << "-------------------------------------------------------------------------";
+           std::cout << std::endl << "Menu: " << std::endl << std::endl;
+           std::cout << "1: Continue Simulation" << std::endl;
+           std::cout << "2: Add Ground Station" << std::endl;
+           std::cout << "3: Determine smallest latency path between ground stations" << std::endl;
+           std::cout << "4: Exit program" << std::endl;
+           std::cin >> choice;
+
+           if (choice == 1) {
+                // continue simulation
+                std::cout << std::endl;
+           }
+
+           else if (choice == 2) {
+                // Add Ground Station
+                std::cout << std::endl;
+                double x, y, z;
+                std::cout << "Enter the xyz values of the new ground station: " << std::endl << std::endl;
+                std::cout << "x: ";
+                std::cin >> x;
+                std::cout << std::endl << "y: ";
+                std::cin >> y;
+                std::cout << std::endl << "z: ";
+                std::cin >> z;
+                GroundStation new_gs(x, y, z);
+                stations.push_back(new_gs);
+                std::cout << std::endl << "New groundstation added" << std::endl << std::endl;
+           }
+
+           else if (choice == 3) {
+                // Determine smallest latency path between ground stations
+                std::cout << std::endl;
+                for (unsigned int i = 0; i < stations.length(); ++i) {
+                     std::cout << "(GS" << i + 1 << ")  ";
+                     std::cout << "x: " << stations[i].get_x() << " km  ";
+                     std::cout << "y: " << stations[i].get_y() << " km  ";
+                     std::cout << "z: " << stations[i].get_z() << " km  ";
+                     std::cout << std::endl;
+                }
+
+                int select_1, select_2;
+                std::cout << std::endl << "What ground stations would you like to connect? ";
+                std::cout << "Ground Station (origin): ";
+                std::cin >> select_1;
+                std::cout << "Ground Station (destination): ";
+                std::cin >> select_2;
+                std::cout << std::endl;
+
+                // Find satellite that is the closest to each ground station
+
+
+                // Dijkstra(select_1 - 1, select_2 - 1);
+           }
+
+           else {
+                exit = true;
+           }
+      }*/
+
 }

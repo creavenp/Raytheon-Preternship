@@ -135,9 +135,11 @@ class Graph_Sat {
 				}
 		  }
 
-            //void Dijkstra(unsigned int origin, unsigned destin);
+            /*void Dijskstra(unsigned int origin, unsigned int destin) {
+                 // do stuff
+            }*/
 
-          // Dijkstra's Algorithm
+            // Dijkstra's Algorithm
 		/*void Dijkstra( unsigned int destin ){
 
 
@@ -151,15 +153,15 @@ class Graph_Sat {
 			// Initialize the Elements
 			Stack< unsigned int > theStack;
 			DynArr< unsigned int > parents( vertices.length() );
-			DynArr< double > distance;
-			Stack< unsigned int > finalPath;
+			DynArr< int > distance;
+               Stack< unsigned int > finalPath;
 
 			bool found = false;
 
-			// Initialize the origin
+			 Initialize the origin
 			theStack.push( 0 );
 			distance[0] = 0;
-			parents[0] = 2147483647;
+			parents[0] = -1;
 
 			if( destin == 0 ){
 				found = true;
@@ -172,7 +174,7 @@ class Graph_Sat {
 					// Make it the largest possible int
 					distance[ iter ] = 2147483647;
 					// Set the parent to -1
-					parents[ iter ] = 2147483647;
+					parents[ iter ] = -1;
 				}
 
 				// Run the shortest path algorithm
@@ -215,7 +217,7 @@ class Graph_Sat {
 				unsigned int sentinel = destin;
 				finalPath.push( sentinel );		// Push the desination onto the stack
 
-				while( parents[sentinel] != 2147483647 ){
+				while( parents[sentinel] != -1 ){
 
 					finalPath.push( parents[sentinel] );	// Push the parent onto the stack
 					sentinel = parents[sentinel];			// Update the sentinel
@@ -223,33 +225,30 @@ class Graph_Sat {
 				}
 
 				// Stack contains the correct order
-                    std::cout << "A valid path exists between sat1 to sat" << destin + 1 << " : ";
+				std::cout << "The valid Dijkstra path from 0 to " << destin << " is: ";
 				while( !finalPath.empty() ){
 
-					std::cout << finalPath.top() + 1;
-                         if (finalPath.size() > 1) {
-                              std::cout << " -> ";
-                         }
+					std::cout << finalPath.top() << " ";
 					finalPath.pop();
 				}
-				std::cout << std::endl << "Distance: "<< distance[destin] << std::endl;
+				std::cout << ", and the distance is " << distance[destin] << std::endl;
 				std::cout << std::endl;
 			}
+
 		}*/
 
-          // Overloaded operator
-          friend std::ostream& operator<<(std::ostream& output, const Graph_Sat& theGraph) {
-               for (unsigned int i = 0; i < theGraph.vertices.length(); ++i) {
-                    if (i < 10) {
-                         output << "Sat (" << i << ")  : " << theGraph.vertices[i] << std::endl;
-                    }
-                    else {
-                         output << "Sat (" << i << ") : " << theGraph.vertices[i] << std::endl;
-                    }
-               }
-               return output;
-          }
-
+            // Overloaded operator
+            friend std::ostream& operator<<(std::ostream& output, const Graph_Sat& theGraph) {
+                 for (unsigned int i = 0; i < theGraph.vertices.length(); ++i) {
+                      if (i < 10) {
+                           output << "Sat (" << i << ")  : " << theGraph.vertices[i] << std::endl;
+                      }
+                      else {
+                           output << "Sat (" << i << ") : " << theGraph.vertices[i] << std::endl;
+                      }
+                 }
+                 return output;
+            }
 };
 
 #endif
