@@ -17,11 +17,11 @@ private:
 public:
 
 	/*** Basic Graph Features ***/
-	
+
 	// Constructor
 	Graph_Sat() : vertices() {}
 
-	
+
 	void add_vertex(Satellite vertexData) {
 		Vertex<Satellite> theVertex(vertexData);
 		vertices.push_back(theVertex);
@@ -30,15 +30,15 @@ public:
 	Satellite get_vertex(unsigned int vertex) {
 		return vertices[vertex].get_vertex_value();
 	}
-	
+
 	// Get dynamic array of vertices
 	DynArr< Vertex<Satellite> > get_vertices() {
 		return vertices;
 	}
 
-	
+
 	/*** Edge Manipulation ***/
-	
+
 	// Add Edge from Origin to Destination, with weight
 	void add_edge(unsigned int origin, unsigned int destin, double weight) {
 		if (origin < vertices.length() && destin < vertices.length()) {
@@ -59,7 +59,7 @@ public:
 			add_edge(origin, destin, weight);
 		}
 	}
-	
+
 	// Set the value of an edge with a specific weight
 	void set_edge_value(unsigned int origin, unsigned int destin, double weight) {
 		if (origin < vertices.length() && destin < vertices.length()) {
@@ -117,7 +117,7 @@ public:
 	}
 
 	/*** Additional Satellite-Specific Setters ***/
-	
+
 	// Set x value of certain vertex
 	void set_satellite_x(unsigned int vertex, double x_in) {
 		if (vertex < vertices.length()) {
@@ -147,7 +147,7 @@ public:
 	}
 
 	/*** Graph Utility Functions ***/
-	
+
 	// Update each edge in the graph based on their current distances
 	void update_edges()
 	{
@@ -159,7 +159,7 @@ public:
 			}
 		}
 	}
-	
+
 	// Dijkstra's Algorithm for calulating the shortest path between a specified origin and destination node
 	// If it finds a valid path, returns the distance (through a return statement) and the path to get there (through a Stack passed by reference)
 	double Dijkstra( unsigned int origin, unsigned int destin, Stack<unsigned int> &finalPath ){
@@ -172,7 +172,7 @@ public:
 
 		/* Initialize the Elements */
 		Stack< unsigned int > theStack;
-		DynArr< int > parents( vertices.length() );
+		DynArr< unsigned int > parents( vertices.length() );
 		DynArr< double > distance( vertices.length() );
 
 		bool found = false;
@@ -180,7 +180,7 @@ public:
 		/* Initialize the origin */
 		theStack.push( origin );
 		distance[origin] = 0;
-		parents[origin] = -1;
+		parents[origin] = 2147483647;
 
 		if( destin == origin ){
 			found = true;
@@ -194,7 +194,7 @@ public:
 					// Make it the largest possible int
 					distance[ iter ] = 2147483647;
 					// Set the parent to -1
-					parents[ iter ] = -1;
+					parents[ iter ] = 2147483647;
 				}
 			}
 
@@ -233,7 +233,7 @@ public:
 			unsigned int sentinel = destin;
 			finalPath.push( sentinel );		// Push the desination onto the stack
 
-			while( parents[sentinel] != -1 ){
+			while( parents[sentinel] != 2147483647 ){
 				finalPath.push( parents[sentinel] );	// Push the parent onto the stack
 				sentinel = parents[sentinel];			// Update the sentinel
 			}
@@ -253,6 +253,7 @@ public:
 			// The path stack is returned through the pass by ref
 			return distance[destin];
 		}
+		return -1;
 	}
 
 	// Overloaded operator

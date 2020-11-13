@@ -6,6 +6,7 @@
 #include "../include/Satellite.h"
 #include "../include/GroundStation.h"
 #include "../include/Graph_Sat.h"
+#include "../include/Stack.h"
 #include <math.h>
 #include <time.h>
 #include <unistd.h>

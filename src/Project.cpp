@@ -140,10 +140,10 @@ int main() {
       std::thread oThread(runOrbits, constellation);
       while (!exit) {
            int choice;
-           std::cout << "-------------------------------------------------------------------------" << std::endl;
+           /*std::cout << "-------------------------------------------------------------------------" << std::endl;
            std::cout << "Running Orbits ..." << std::endl;
            //std::thread oThread(runOrbits, constellation);
-           std::cout << "Press Enter to Stop Orbits" << std::endl;
+           std::cout << "Press Enter to Stop Orbits" << std::endl;*/
            fflush(stdin);
            std::cin.get(c);
            /*while(c != 'a') {
@@ -177,7 +177,7 @@ int main() {
                 std::cin >> z;
                 GroundStation new_gs(x, y, z);
                 stations.push_back(new_gs);
-                std::cout << std::endl << "New groundstation added" << std::endl << std::endl;
+                std::cout << std::endl << "New groundstation added" << std::endl << "Press enter to continue" << std::endl;
            }
 
            else if (choice == 3) {
@@ -200,21 +200,36 @@ int main() {
                 std::cout << std::endl;
 
                 // Find satellite that is the closest to each ground station
-                // Select 1
-                double smallest_dist = DBL_MAX;
-                unsigned int closest_sat;
+                double smallest_dist_1 = DBL_MAX;
+                double smallest_dist_2 = DBL_MAX;
+                unsigned int closest_sat_1;
+                unsigned int closest_sat_2;
                 for (unsigned int i = 0; i < constellation.get_vertices().length(); ++i) {
-                     double current_dist = calculate_distance(constellation.get_vertex(i), stations[select_1 - 1]);
-                     if (current_dist < smallest_dist) {
-                          smallest_dist = current_dist;
-                          closest_sat = i;
+                     double current_dist_1 = calculate_distance(constellation.get_vertex(i), stations[select_1 - 1]);
+                     double current_dist_2 = calculate_distance(constellation.get_vertex(i), stations[select_2 - 1]);
+                     if (current_dist_1 < smallest_dist_1) {
+                          smallest_dist_1 = current_dist_1;
+                          closest_sat_1 = i;
+                     }
+                     if (current_dist_2 < smallest_dist_2) {
+                          smallest_dist_2 = current_dist_2;
+                          closest_sat_2 = i;
                      }
                 }
 
-                std::cout << "Closest sat: " << closest_sat << std::endl;
-                std::cout << "Dist: " << smallest_dist << std::endl;
-
-                // Dijkstra(select_1 - 1, select_2 - 1);
+                // Run Dijkstra's Algorithm
+                Stack<unsigned int> finalPath;
+                std::cout << closest_sat_1 << std::endl;
+                std::cout << closest_sat_2 << std::endl;
+                constellation.Dijkstra(closest_sat_1, closest_sat_2, finalPath);
+                std::cout << "Shortest Path: ";
+                std::cout << "(GS" << select_1 << ") --> ";
+                for (unsigned int i = 0; i < finalPath.size(); ++i) {
+                     std::cout << "Sat(" << finalPath.top() << ") --> ";
+                     finalPath.pop();
+                }
+                std::cout << "(GS" << select_2 << ")";
+                std::cout << std::endl << "Press enter to contine" << std::endl;
            }
 
            else {
