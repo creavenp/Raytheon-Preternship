@@ -135,7 +135,7 @@ class Graph_Sat {
 				}
 		  }
 
-            void Dijkstra(unsigned int origin, unsigned destin);
+            //void Dijkstra(unsigned int origin, unsigned destin);
 
           // Dijkstra's Algorithm
 		/*void Dijkstra( unsigned int destin ){
@@ -240,7 +240,7 @@ class Graph_Sat {
           // Overloaded operator
           friend std::ostream& operator<<(std::ostream& output, const Graph_Sat& theGraph) {
                for (unsigned int i = 0; i < theGraph.vertices.length(); ++i) {
-                    if (i < 9) {
+                    if (i < 10) {
                          output << "Sat (" << i << ")  : " << theGraph.vertices[i] << std::endl;
                     }
                     else {

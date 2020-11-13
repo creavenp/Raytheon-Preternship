@@ -102,14 +102,14 @@ int main() {
       
 
        // Sets satellites in motion for one orbit and displays location data
-       /*for (double t = 0; t < 2 * M_PI; t += 0.01) {
+       for (double t = 0; t < 2 * M_PI; t += 0.01) {
            usleep(100000);
            std::cout << "\033[2J\033[1;1H";
            std::cout << "Press Space determine latency between ground stations:" << std::endl << std::endl;
            std::cout << constellation << std::endl;
            orbit(t, constellation);
            constellation.update_edges();
-      }*/
+      }
 
       //onstellation.Dijkstra(sat2);
 }
