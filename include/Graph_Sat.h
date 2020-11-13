@@ -12,7 +12,7 @@ class Graph_Sat {
 
      private:
 
-          DynArr < Vertex<Satellite> > vertices; // Adjacency calculate_distance
+          DynArr<Vertex<Satellite>> vertices; // Adjacency calculate_distance
 
      public:
 
@@ -26,11 +26,6 @@ class Graph_Sat {
 
           Satellite get_vertex(unsigned int vertex) {
                return vertices[vertex].get_vertex_value();
-          }
-
-          // Get dynamic array of vertices
-          DynArr< Vertex<Satellite> > get_vertices() {
-               return vertices;
           }
 
           // Add Edge from Origin to Destination, with weight
@@ -145,7 +140,7 @@ class Graph_Sat {
             }*/
 
             /// Dijkstra's Algorithm
-        		void Dijkstra( unsigned int origin, unsigned int destin ){
+        		void Dijkstra( unsigned int origin, unsigned int destin, Stack<unsigned int> &finalPath ){
 
 
         			if( origin >= vertices.length() || destin >= vertices.length() || vertices.length() == 0 ){
@@ -159,7 +154,6 @@ class Graph_Sat {
         			Stack< unsigned int > theStack;
         			DynArr< int > parents( vertices.length() );
         			DynArr< double > distance( vertices.length() );
-        			Stack< unsigned int > finalPath;
 
         			bool found = false;
 
@@ -233,7 +227,8 @@ class Graph_Sat {
         				}
 
         				// Stack contains the correct order
-        				std::cout << "The valid Dijkstra path from " << origin << " to " << destin << " is: ";
+                /*
+                std::cout << "The valid Dijkstra path from " << origin << " to " << destin << " is: ";
         				while( !finalPath.empty() ){
 
         					std::cout << finalPath.top() << " ";
@@ -241,6 +236,10 @@ class Graph_Sat {
         				}
         				std::cout << ", and the distance is " << distance[destin] << std::endl;
         				std::cout << std::endl;
+                */
+
+                // The path stack is returned through the pass by ref
+                return disance[destin];
         			}
         		}
 
