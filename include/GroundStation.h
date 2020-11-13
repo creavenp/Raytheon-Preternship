@@ -3,16 +3,16 @@
 
 class GroundStation : public Structure {
 
-     public:
+public:
 
-          // Default Constructor
-		  GroundStation() : Structure(0, 0, 0) {}
+	// Default Constructor
+	GroundStation() : Structure(0, 0, 0) {}
 
-		  // Constructor
-          GroundStation(double x_in, double y_in, double z_in) : Structure(x_in, y_in, z_in) {}
+	// Constructor
+	GroundStation(double x_in, double y_in, double z_in) : Structure(x_in, y_in, z_in) {}
 
-          // Destructor
-          ~GroundStation() {}
+	// Destructor
+	~GroundStation() {}
 
 };
 

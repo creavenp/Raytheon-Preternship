@@ -9,179 +9,179 @@
 template<class T>
 class Vertex{
 
-	private:
+private:
 
-		DynArr< Edge > edges;
-		T data;
-		bool valid;			// Valid Vertex
+	DynArr< Edge > edges;
+	T data;
+	bool valid;			// Valid Vertex
 
-	public:
+public:
 
-		Vertex( ) : edges(), data( ), valid( true ) {}
+	Vertex( ) : edges(), data( ), valid( true ) {}
 
-		Vertex( const T& dataIn ) : edges(), data( dataIn ), valid( true ) {}
+	Vertex( const T& dataIn ) : edges(), data( dataIn ), valid( true ) {}
 
-		~Vertex(){ }
+	~Vertex(){ }
 
-		Vertex( const Vertex<T>& rhs ){
+	Vertex( const Vertex<T>& rhs ){
 
-			if( this != &rhs ){
+		if( this != &rhs ){
 
-				for( unsigned int iter = 0; iter < rhs.num_edges(); iter++ ){
+			for( unsigned int iter = 0; iter < rhs.num_edges(); iter++ ){
 
-					edges.push_back( rhs.edges[iter] );
-
-				}
-
-				data = rhs.data;
+				edges.push_back( rhs.edges[iter] );
 
 			}
 
+			data = rhs.data;
+
 		}
 
-		Vertex<T>& operator=( const Vertex<T>& rhs ){
+	}
 
-			if( this != &rhs ){
+	Vertex<T>& operator=( const Vertex<T>& rhs ){
 
-				for( unsigned int iter = 0; iter < rhs.num_edges(); iter++ ){
-					edges.push_back( rhs.edges[iter] );
-				}
+		if( this != &rhs ){
 
-				data = rhs.data;
+			for( unsigned int iter = 0; iter < rhs.num_edges(); iter++ ){
+				edges.push_back( rhs.edges[iter] );
 			}
 
-			return *this;
+			data = rhs.data;
 		}
 
-		T& get_vertex_value() {
+		return *this;
+	}
 
-			return data;
-		}
+	T& get_vertex_value() {
 
-		void set_vertex_value(const T& dataIn){
+		return data;
+	}
 
-			data = dataIn;
-		}
+	void set_vertex_value(const T& dataIn){
 
-		// Adding an Edge to a Vertex
-		void add_edge( unsigned int destin, double weight ){
+		data = dataIn;
+	}
 
-			// If not, put the edge on the back of the array
-			edges.push_back( Edge(destin, weight) );
+	// Adding an Edge to a Vertex
+	void add_edge( unsigned int destin, double weight ){
 
-		}
+		// If not, put the edge on the back of the array
+		edges.push_back( Edge(destin, weight) );
 
-		// Pass the destination, return weight with call be reference, bool if found
-		bool get_edge_value( unsigned int destin, int& weight ) const{
+	}
 
-			bool edgeFound = false;
+	// Pass the destination, return weight with call be reference, bool if found
+	bool get_edge_value( unsigned int destin, int& weight ) const{
 
-			for( unsigned int i = 0; i < edges.length(); i++){
-				if( edges[i].destin == destin ){
+		bool edgeFound = false;
 
-					edgeFound = true;
-					weight = edges[i].weight;
-				}
+		for( unsigned int i = 0; i < edges.length(); i++){
+			if( edges[i].destin == destin ){
+
+				edgeFound = true;
+				weight = edges[i].weight;
 			}
-
-			return edgeFound;
 		}
 
-		// Pass the destination and weight, bool if found
-		bool set_edge_value( unsigned int destin, double weight) {
+		return edgeFound;
+	}
 
-			bool edgeFound = false;
+	// Pass the destination and weight, bool if found
+	bool set_edge_value( unsigned int destin, double weight) {
 
-			for( unsigned int i = 0; i < edges.length(); i++){
-				if( edges[i].destin == destin ){
+		bool edgeFound = false;
 
-					edgeFound = true;
-					edges[i].weight = weight;
-				}
+		for( unsigned int i = 0; i < edges.length(); i++){
+			if( edges[i].destin == destin ){
+
+				edgeFound = true;
+				edges[i].weight = weight;
 			}
-
-			return edgeFound;
 		}
 
-		// Remove the edge to an input destination
-		bool remove_edge( unsigned int edgeLoc ){
+		return edgeFound;
+	}
 
-			bool deleted = false;
+	// Remove the edge to an input destination
+	bool remove_edge( unsigned int edgeLoc ){
 
-			for(unsigned int i = 0; i < edges.length(); i++){
+		bool deleted = false;
 
-				if( edges[i].destin == edgeLoc ){
-					edges.erase(i);
-					deleted = true;
-					break;
-				}
+		for(unsigned int i = 0; i < edges.length(); i++){
+
+			if( edges[i].destin == edgeLoc ){
+				edges.erase(i);
+				deleted = true;
+				break;
 			}
-
-			return deleted;
 		}
 
-		// Return an edge
-		Edge get_edge( unsigned int edgeOrder ) {
+		return deleted;
+	}
 
-			return edges[ edgeOrder ];
-		}
+	// Return an edge
+	Edge get_edge( unsigned int edgeOrder ) {
 
-		// Return the number of edges
-		unsigned int num_edges() const{
+		return edges[ edgeOrder ];
+	}
 
-			return (unsigned int)edges.length();
-		}
+	// Return the number of edges
+	unsigned int num_edges() const{
 
-		unsigned int get_edge_destin(unsigned int index)
+		return (unsigned int)edges.length();
+	}
+
+	unsigned int get_edge_destin(unsigned int index)
+	{
+		if(index < edges.length())
 		{
-			if(index < edges.length())
-			{
-				return edges[index].destin;
-			}
-			// will never hit this case
-			return 100000000;
+			return edges[index].destin;
+		}
+		// will never hit this case
+		return 100000000;
+	}
+
+	// Clear the vertex
+	void lazy_delete(){
+
+		valid = false;
+
+		while( edges.length() > 0 ){
+
+			// Remove the front edge
+			edges.erase( 0 );
 		}
 
-		// Clear the vertex
-		void lazy_delete(){
+	}
 
-			valid = false;
+	// Overloaded Friend Output Operator
+	friend std::ostream& operator<<( std::ostream& output, const Vertex<T>& theVert ){
 
-			while( edges.length() > 0 ){
+		// If the vertex is valid
+		if( theVert.valid ){
 
-				// Remove the front edge
-				edges.erase( 0 );
+			// Print the data element first
+			output << theVert.data << ":    ";
+
+			for( unsigned int iter = 0; iter < theVert.edges.length(); iter++ ){
+
+				// Print the destination
+				output << "{" << theVert.edges[iter].destin << ", ";
+
+				// Print the weight
+				output << theVert.edges[iter].weight << "} ";
+
 			}
 
 		}
-
-		// Overloaded Friend Output Operator
-		friend std::ostream& operator<<( std::ostream& output, const Vertex<T>& theVert ){
-
-			// If the vertex is valid
-			if( theVert.valid ){
-
-				// Print the data element first
-				output << theVert.data << ":    ";
-
-				for( unsigned int iter = 0; iter < theVert.edges.length(); iter++ ){
-
-					// Print the destination
-					output << "{" << theVert.edges[iter].destin << ", ";
-
-					// Print the weight
-					output << theVert.edges[iter].weight << "} ";
-
-				}
-
-			}
-			// If the vertex is not valid, indicate Lazy Deletion
-			else{
-				output << "[DELETED]";
-			}
-
-			return output;
+		// If the vertex is not valid, indicate Lazy Deletion
+		else{
+			output << "[DELETED]";
 		}
+
+		return output;
+	}
 
 };
 
