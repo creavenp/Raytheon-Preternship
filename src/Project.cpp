@@ -118,6 +118,7 @@ int main() {
            std::cout << "\033[2J\033[1;1H";
            std::cout << "Press Space determine latency between ground stations:" << std::endl << std::endl;
            std::cout << constellation << std::endl;
+		   constellation.Dijkstra(1,15);
            orbit(t, constellation);
            constellation.update_edges();
       }*/
