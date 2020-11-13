@@ -1,4 +1,7 @@
 #include "../include/Project.h"
+#include <atomic>
+std::atomic<bool> stop;
+
 
 enum sat_id {sat1, sat2, sat3, sat4, sat5, sat6, sat7, sat8,
              sat9, sat10, sat11, sat12, sat13, sat14, sat15, sat16,
@@ -87,8 +90,26 @@ void orbit(double t, Graph_Sat& constellation) {
 	 add_noise(24, constellation);
 }
 
+void runOrbits(Graph_Sat constellation) {
+  double t = 0;
+  while (1) {
+      if(!(stop)) {
+        usleep(100000);
+        std::cout << "\033[2J\033[1;1H";
+        std::cout << "Press Space determine latency between ground stations:" << std::endl << std::endl;
+        std::cout << constellation << std::endl;
+        orbit(t, constellation);
+        constellation.update_edges();
+        t += 0.01;
+      }
+ }
+}
+
 int main() {
       Graph_Sat constellation;
+
+      stop = false;
+      char c;
 
 	  // Add 24 Satellites to the constellation
 	  for(int i = 0; i < 24; ++i)
@@ -113,21 +134,24 @@ int main() {
 
 
        // Sets satellites in motion for one orbit and displays location data
-       /*for (double t = 0; t < 2 * M_PI; t += 0.01) {
-           usleep(100000);
-           std::cout << "\033[2J\033[1;1H";
-           std::cout << "Press Space determine latency between ground stations:" << std::endl << std::endl;
-           std::cout << constellation << std::endl;
-		   constellation.Dijkstra(1,15);
-           orbit(t, constellation);
-           constellation.update_edges();
-      }*/
 
       // Once paused
       bool exit = false;
+      std::thread oThread(runOrbits, constellation);
       while (!exit) {
            int choice;
-           std::cout << "-------------------------------------------------------------------------";
+           std::cout << "-------------------------------------------------------------------------" << std::endl;
+           std::cout << "Running Orbits ..." << std::endl;
+           //std::thread oThread(runOrbits, constellation);
+           std::cout << "Press Enter to Stop Orbits" << std::endl;
+           fflush(stdin);
+           std::cin.get(c);
+           /*while(c != 'a') {
+             std::cin >> c;
+           }*/
+           stop = true;
+           usleep(100000);
+           //oThread.join();
            std::cout << std::endl << "Menu: " << std::endl << std::endl;
            std::cout << "1: Continue Simulation" << std::endl;
            std::cout << "2: Add Ground Station" << std::endl;
@@ -137,7 +161,7 @@ int main() {
 
            if (choice == 1) {
                 // continue simulation
-                std::cout << std::endl;
+                stop = false;
            }
 
            else if (choice == 2) {
