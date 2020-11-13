@@ -172,7 +172,7 @@ public:
 
 		/* Initialize the Elements */
 		Stack< unsigned int > theStack;
-		DynArr< unsigned int > parents( vertices.length() );
+		DynArr< int > parents( vertices.length() );
 		DynArr< double > distance( vertices.length() );
 
 		bool found = false;
@@ -180,7 +180,7 @@ public:
 		/* Initialize the origin */
 		theStack.push( origin );
 		distance[origin] = 0;
-		parents[origin] = 2147483647;
+		parents[origin] = -1;
 
 		if( destin == origin ){
 			found = true;
@@ -194,7 +194,7 @@ public:
 					// Make it the largest possible int
 					distance[ iter ] = 2147483647;
 					// Set the parent to -1
-					parents[ iter ] = 2147483647;
+					parents[ iter ] = -1;
 				}
 			}
 
@@ -215,7 +215,7 @@ public:
 						distance[ tempEdge.destin ] = distance[ index ] + tempEdge.weight;
 
 						// Update the parent of the destin
-						parents[ tempEdge.destin ] = index;
+						parents[ tempEdge.destin ] = (int)index;
 
 						// Check if destin is the result;
 						if( tempEdge.destin == destin && !found ){
@@ -233,9 +233,9 @@ public:
 			unsigned int sentinel = destin;
 			finalPath.push( sentinel );		// Push the desination onto the stack
 
-			while( parents[sentinel] != 2147483647 ){
-				finalPath.push( parents[sentinel] );	// Push the parent onto the stack
-				sentinel = parents[sentinel];			// Update the sentinel
+			while( parents[sentinel] != -1 ){
+				finalPath.push( (unsigned int)parents[sentinel] );	// Push the parent onto the stack
+				sentinel = (unsigned int)parents[sentinel];			// Update the sentinel
 			}
 
 			// Stack contains the correct order

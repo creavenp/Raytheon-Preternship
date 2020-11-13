@@ -126,7 +126,7 @@ int main() {
 
        // Create GroundStations
        GroundStation gs_1(2900, 2000, 1000);
-       GroundStation gs_2(-2500, 2300, -700);
+       GroundStation gs_2(-2500, 2300, 3000);
 
        DynArr<GroundStation> stations(0);
        stations.push_back(gs_1);
@@ -230,10 +230,13 @@ int main() {
                 }
                 std::cout << "(GS" << select_2 << ")";
                 std::cout << std::endl << "Press enter to contine" << std::endl;
+
+
            }
 
            else {
                 exit = true;
            }
       }
+      std::cout << "\033[2J\033[1;1H";
 }
