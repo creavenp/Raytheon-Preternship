@@ -96,13 +96,13 @@ void runOrbits(Graph_Sat constellation) {
       if(!(stop)) {
         usleep(100000);
         std::cout << "\033[2J\033[1;1H";
-        std::cout << "Press Space determine latency between ground stations:" << std::endl << std::endl;
+        std::cout << "Press Enter to access menu: " << std::endl << std::endl;
         std::cout << constellation << std::endl;
         orbit(t, constellation);
         constellation.update_edges();
         t += 0.01;
       }
- }
+  }
 }
 
 int main() {
@@ -216,6 +216,7 @@ int main() {
                           closest_sat_2 = i;
                      }
                 }
+                std::cout << "Sat1: " << constellation.get_vertex(0).get_x();
 
                 // Run Dijkstra's Algorithm
                 Stack<unsigned int> finalPath;
@@ -224,10 +225,11 @@ int main() {
                 constellation.Dijkstra(closest_sat_1, closest_sat_2, finalPath);
                 std::cout << "Shortest Path: ";
                 std::cout << "(GS" << select_1 << ") --> ";
-                for (unsigned int i = 0; i < finalPath.size(); ++i) {
+                for (unsigned int i = 0; i <  finalPath.size(); ++i) {
                      std::cout << "Sat(" << finalPath.top() << ") --> ";
                      finalPath.pop();
                 }
+                std::cout << "Sat(" << finalPath.top() << ") --> ";
                 std::cout << "(GS" << select_2 << ")";
                 std::cout << std::endl << "Press enter to contine" << std::endl;
 
