@@ -161,6 +161,7 @@ int main() {
            if (choice == 1) {
                 // continue simulation
                 stop = false;
+                std::cin.ignore();
            }
 
            else if (choice == 2) {
@@ -239,4 +240,5 @@ int main() {
            }
       }
       std::cout << "\033[2J\033[1;1H";
+      return 0;
 }
