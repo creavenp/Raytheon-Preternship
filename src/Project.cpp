@@ -1,5 +1,4 @@
 #include "../include/Project.h"
-#include <atomic>
 std::atomic<bool> stop;
 
 

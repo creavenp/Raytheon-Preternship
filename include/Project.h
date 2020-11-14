@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <float.h>
 #include <thread>
+#include <atomic>
 
 // Helper functions for Project
 void add_edges(Graph_Sat& constellation);
