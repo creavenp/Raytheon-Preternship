@@ -173,6 +173,20 @@ int main() {
                 std::cin >> y;
                 std::cout << std::endl << "z: ";
                 std::cin >> z;
+
+                // Longitude and latitude
+                /*double longitude, latitude, elevation;
+                std::cout << "Enter the longitude, latitude, and elevation of the new ground station: " << std::endl << std::endl;
+                std::cout << "Longitude: ";
+                std::cin >> longitude;
+                std::cout << "Latitude: ";
+                std::cin >> latitude;
+                std::cout << "Elevation: ";
+                std::cin >> elevation;*/
+
+                // Calculate longitude, latitude, and elevation to xyz relative to center of the Earth
+
+
                 GroundStation new_gs(x, y, z);
                 stations.push_back(new_gs);
                 std::cout << std::endl << "New groundstation added" << std::endl << "Press enter to continue" << std::endl;
