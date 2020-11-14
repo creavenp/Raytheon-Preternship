@@ -89,7 +89,7 @@ void orbit(double t, Graph_Sat& constellation) {
 	 add_noise(24, constellation);
 }
 
-void runOrbits(Graph_Sat constellation) {
+void runOrbits(Graph_Sat& constellation) {
   double t = 0;
   while (1) {
       if(!(stop)) {
@@ -136,7 +136,7 @@ int main() {
 
       // Once paused
       bool exit = false;
-      std::thread oThread(runOrbits, constellation);
+      std::thread oThread(runOrbits, std::ref(constellation));
       while (!exit) {
            int choice;
            /*std::cout << "-------------------------------------------------------------------------" << std::endl;
@@ -215,7 +215,6 @@ int main() {
                           closest_sat_2 = i;
                      }
                 }
-                std::cout << "Sat1: " << constellation.get_vertex(0).get_x();
 
                 // Run Dijkstra's Algorithm
                 Stack<unsigned int> finalPath;
