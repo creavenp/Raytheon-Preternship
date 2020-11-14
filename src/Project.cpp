@@ -6,8 +6,6 @@ enum sat_id {sat1, sat2, sat3, sat4, sat5, sat6, sat7, sat8,
              sat9, sat10, sat11, sat12, sat13, sat14, sat15, sat16,
              sat17, sat18, sat19, sat20, sat21, sat22, sat23, sat24};
 
-#define SPEED_OF_LIGHT 300000000
-
 double calculate_distance(Structure struct1, Structure struct2) {
      double x_diff = struct1.get_x() - struct2.get_x();
      double y_diff = struct1.get_y() - struct2.get_y();
@@ -219,19 +217,33 @@ int main() {
 
                 // Run Dijkstra's Algorithm
                 Stack<unsigned int> finalPath;
-                std::cout << closest_sat_1 << std::endl;
-                std::cout << closest_sat_2 << std::endl;
                 constellation.Dijkstra(closest_sat_1, closest_sat_2, finalPath);
                 std::cout << "Shortest Path: ";
                 std::cout << "(GS" << select_1 << ") --> ";
-                for (unsigned int i = 0; i <  finalPath.size(); ++i) {
-                     std::cout << "Sat(" << finalPath.top() << ") --> ";
-                     finalPath.pop();
-                }
-                std::cout << "Sat(" << finalPath.top() << ") --> ";
-                std::cout << "(GS" << select_2 << ")";
-                std::cout << std::endl << "Press enter to contine" << std::endl;
 
+                double total_dist = smallest_dist_1 + smallest_dist_2;
+                unsigned int connections = finalPath.size();
+                for (unsigned int i = 0; i < connections; ++i) {
+                     std::cout << "Sat(" << finalPath.top() << ") --> ";
+                     unsigned int prev_sat_num = finalPath.top();
+                     finalPath.pop();
+                     if (i != connections - 1) {
+                           total_dist += calculate_distance(constellation.get_vertex(prev_sat_num), constellation.get_vertex(finalPath.top()));
+                     }
+                }
+                //std::cout << "Sat(" << finalPath.top() << ") --> ";
+                std::cout << "(GS" << select_2 << ")";
+
+                // Calculate Latency
+                double speed_of_light = 299792458; // meters per second
+                total_dist *= 1000;  // convert from km to meters
+                double latency = total_dist / speed_of_light;
+
+                // Print latency
+                std::cout << std::fixed;
+      		 std::cout << std::setprecision(5);
+                std::cout << std::endl << "Latency time: " << latency << " seconds" << std::endl;
+                std::cout << std::endl << "Press enter to contine" << std::endl;
 
            }
 
