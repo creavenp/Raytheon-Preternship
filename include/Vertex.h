@@ -162,7 +162,7 @@ public:
 		if( theVert.valid ){
 
 			// Print the data element first
-			output << theVert.data << ":    ";
+			output << theVert.data << ":\t";
 
 			for( unsigned int iter = 0; iter < theVert.edges.length(); iter++ ){
 
@@ -170,7 +170,7 @@ public:
 				output << "{" << theVert.edges[iter].destin << ", ";
 
 				// Print the weight (Satellite distance specific)
-				output << theVert.edges[iter].weight << " km" << "} ";
+				output << theVert.edges[iter].weight << " km" << "}\t";
 
 			}
 

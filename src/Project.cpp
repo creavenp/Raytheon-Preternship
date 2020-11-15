@@ -50,14 +50,15 @@ void add_edges(Graph_Sat& constellation)
 
 
 // Simulate small differences in the orbital pattern of the first num structures
-// Adds a random value between +/-50 to show the distance recalculations
+// Adds a random value between +/-25 to add entropy to the system
+// and show the distance recalculations
 void add_noise(unsigned int num, Graph_Sat& constellation)
 {
 	for(unsigned int i = 0; i < num; ++i)
 	{
-		double new_x = constellation.get_satellite_x(i) + (rand()%100-50);
-		double new_y = constellation.get_satellite_y(i) + (rand()%100-50);
-		double new_z = constellation.get_satellite_z(i) + (rand()%100-50);
+		double new_x = constellation.get_satellite_x(i) + (rand()%50-25);
+		double new_y = constellation.get_satellite_y(i) + (rand()%50-25);
+		double new_z = constellation.get_satellite_z(i) + (rand()%50-25);
 		constellation.set_satellite_xyz(i, new_x, new_y, new_z);
 	}
 }
@@ -168,12 +169,12 @@ int main() {
 			// Add Ground Station
 			std::cout << std::endl;
 			double x, y, z;
-			std::cout << "Enter the xyz values of the new ground station: " << std::endl << std::endl;
+			std::cout << "Enter the xyz values of the new ground station (in ECEF Format): " << std::endl;
 			std::cout << "x: ";
 			std::cin >> x;
-			std::cout << std::endl << "y: ";
+			std::cout << "y: ";
 			std::cin >> y;
-			std::cout << std::endl << "z: ";
+			std::cout << "z: ";
 			std::cin >> z;
 
 			// Longitude and latitude
@@ -191,7 +192,7 @@ int main() {
 
 			GroundStation new_gs(x, y, z);
 			stations.push_back(new_gs);
-			std::cout << std::endl << "New groundstation added" << std::endl;
+			std::cout << "New groundstation added" << std::endl << std::endl;
 		}
 
 		else if (choice == 3) {
@@ -230,22 +231,21 @@ int main() {
 					closest_sat_2 = i;
 				}
 			}
+			// Total distance is the distance from each ground station to its nearest
+			// satellite, plus the distance from one satellite to the other.
+			double total_dist = smallest_dist_1 + smallest_dist_2;
 
 			// Run Dijkstra's Algorithm
 			Stack<unsigned int> finalPath;
-			constellation.Dijkstra(closest_sat_1, closest_sat_2, finalPath);
+			total_dist += constellation.Dijkstra(closest_sat_1, closest_sat_2, finalPath);
 			std::cout << "Shortest Path: ";
 			std::cout << "(GS" << select_1 << ") --> ";
 
-			double total_dist = smallest_dist_1 + smallest_dist_2;
 			unsigned int connections = finalPath.size();
+			// Traverse the finalPath stack to output the shortest path
 			for (unsigned int i = 0; i < connections; ++i) {
 				std::cout << "Sat(" << finalPath.top() << ") --> ";
-				unsigned int prev_sat_num = finalPath.top();
 				finalPath.pop();
-				if (i != connections - 1) {
-					total_dist += calculate_distance(constellation.get_vertex(prev_sat_num), constellation.get_vertex(finalPath.top()));
-				}
 			}
 			//std::cout << "Sat(" << finalPath.top() << ") --> ";
 			std::cout << "(GS" << select_2 << ")";
@@ -258,8 +258,7 @@ int main() {
 			// Print latency
 			std::cout << std::fixed;
 			std::cout << std::setprecision(5);
-			std::cout << std::endl << "Latency time: " << latency << " seconds" << std::endl;
-			std::cout << std::endl << "Press enter to contine" << std::endl;
+			std::cout << std::endl << "Latency time: " << latency << " seconds" << std::endl << std::endl;
 
 		}
 

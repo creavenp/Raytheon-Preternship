@@ -67,7 +67,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& output, const Structure& theStructure){
 		output << std::fixed;
 		output << std::setprecision(1);
-		output << "[x: " << theStructure.get_x() << ", " << " y: " << theStructure.get_y() << ", " << "z: " << theStructure.get_z() << "]";
+		output << "[x: " << theStructure.get_x() << ",\t" << " y: " << theStructure.get_y() << ",\t" << "z: " << theStructure.get_z() << "]";
 		return output;
 	}
 };
