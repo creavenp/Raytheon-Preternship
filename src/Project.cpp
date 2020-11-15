@@ -1,9 +1,5 @@
 #include "../include/Project.h"
 
-// Thread control booleans
-std::atomic<bool> stopOrbits;
-std::atomic<bool> stopThread;
-
 #define EARTH_RADIUS 6378137 // meters, using WGS 83 ellipsoid
 #define EARTH_ECCENTRICITY 8.1819190842622e-2 // using WGS 83 ellipsoid
 #define SPEED_OF_LIGHT 299792458 // meters per second
@@ -11,6 +7,10 @@ std::atomic<bool> stopThread;
 enum sat_id {sat1, sat2, sat3, sat4, sat5, sat6, sat7, sat8,
 	sat9, sat10, sat11, sat12, sat13, sat14, sat15, sat16,
 	sat17, sat18, sat19, sat20, sat21, sat22, sat23, sat24};
+
+// Thread control booleans
+std::atomic<bool> stopOrbits;
+std::atomic<bool> stopThread;
 
 // Calculate straight-line distance between two Structure objects
 double calculate_distance(Structure struct1, Structure struct2) {
