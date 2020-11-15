@@ -25,7 +25,6 @@ $(OBJ)/Project.o: $(SRC)/Project.cpp $(INC)/Project.h
 
 
 # make initialize
-# Will be called by grader to initialize your objects and executables folders
 initialize:
 	mkdir obj exe
 

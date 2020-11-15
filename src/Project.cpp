@@ -1,11 +1,14 @@
 #include "../include/Project.h"
-std::atomic<bool> stop;
 
+// Thread control booleans
+std::atomic<bool> stopOrbits;
+std::atomic<bool> stopThread;
 
 enum sat_id {sat1, sat2, sat3, sat4, sat5, sat6, sat7, sat8,
              sat9, sat10, sat11, sat12, sat13, sat14, sat15, sat16,
              sat17, sat18, sat19, sat20, sat21, sat22, sat23, sat24};
 
+// Calculate straight-line distance between two Structure objects
 double calculate_distance(Structure struct1, Structure struct2) {
      double x_diff = struct1.get_x() - struct2.get_x();
      double y_diff = struct1.get_y() - struct2.get_y();
@@ -15,6 +18,7 @@ double calculate_distance(Structure struct1, Structure struct2) {
      return dist;
 }
 
+// Add edges between the 24 hypothetical satellites
 void add_edges(Graph_Sat& constellation)
 {
      // Add viable edges between satellites
@@ -37,16 +41,11 @@ void add_edges(Graph_Sat& constellation)
      }
 
      // Final horizonal and vertical links (back to front, front to back)
-     constellation.add_edge(0, 7);
-     constellation.add_edge(7, 0);
-     constellation.add_edge(8, 15);
-     constellation.add_edge(15, 8);
-     constellation.add_edge(16, 23);
-     constellation.add_edge(23, 16);
-     constellation.add_edge(7, 15);
-     constellation.add_edge(15, 7);
-     constellation.add_edge(15, 23);
-     constellation.add_edge(23, 15);
+	 constellation.add_two_way_edge(sat1, sat8);
+	 constellation.add_two_way_edge(sat9, sat16);
+	 constellation.add_two_way_edge(sat17, sat24);
+	 constellation.add_two_way_edge(sat16, sat8);
+	 constellation.add_two_way_edge(sat16, sat24);
 }
 
 
@@ -89,11 +88,11 @@ void orbit(double t, Graph_Sat& constellation) {
 
 void runOrbits(Graph_Sat& constellation) {
   double t = 0;
-  while (1) {
-      if(!(stop)) {
+  while (!stopThread) {
+      if(!(stopOrbits)) {
         usleep(100000);
         std::cout << "\033[2J\033[1;1H";
-        std::cout << "Press Enter to access menu: " << std::endl << std::endl;
+        std::cout << "Press Enter to access menu" << std::endl << std::endl;
         std::cout << constellation << std::endl;
         orbit(t, constellation);
         constellation.update_edges();
@@ -104,8 +103,6 @@ void runOrbits(Graph_Sat& constellation) {
 
 int main() {
       Graph_Sat constellation;
-
-      stop = false;
       char c;
 
 	  // Add 24 Satellites to the constellation
@@ -134,31 +131,36 @@ int main() {
 
       // Once paused
       bool exit = false;
+
+	  // Thread control booleans (declared globally)
+	  stopOrbits = false;
+	  stopThread = false;
+	  // Start the orbit thread
       std::thread oThread(runOrbits, std::ref(constellation));
+
       while (!exit) {
            int choice;
-           /*std::cout << "-------------------------------------------------------------------------" << std::endl;
-           std::cout << "Running Orbits ..." << std::endl;
-           //std::thread oThread(runOrbits, constellation);
-           std::cout << "Press Enter to Stop Orbits" << std::endl;*/
+
+		   // Wait until user presses enter
            fflush(stdin);
            std::cin.get(c);
-           /*while(c != 'a') {
-             std::cin >> c;
-           }*/
-           stop = true;
-           usleep(100000);
-           //oThread.join();
-           std::cout << std::endl << "Menu: " << std::endl << std::endl;
+
+		   // Pause the orbit calculations while user is making selections
+           stopOrbits = true;
+
+		   // Ensure that the orbits are done printing before showing the menu
+           usleep(200000);
+           std::cout << "Menu: " << std::endl;
            std::cout << "1: Continue Simulation" << std::endl;
            std::cout << "2: Add Ground Station" << std::endl;
            std::cout << "3: Determine smallest latency path between ground stations" << std::endl;
            std::cout << "4: Exit program" << std::endl;
+		   std::cout << "Your choice: ";
            std::cin >> choice;
 
            if (choice == 1) {
                 // continue simulation
-                stop = false;
+                stopOrbits = false;
                 std::cin.ignore();
            }
 
@@ -189,7 +191,7 @@ int main() {
 
                 GroundStation new_gs(x, y, z);
                 stations.push_back(new_gs);
-                std::cout << std::endl << "New groundstation added" << std::endl << "Press enter to continue" << std::endl;
+                std::cout << std::endl << "New groundstation added" << std::endl;
            }
 
            else if (choice == 3) {
@@ -265,6 +267,11 @@ int main() {
                 exit = true;
            }
       }
+
+	  // Thread cleanup
+	  stopThread = true;
+	  oThread.join();
       std::cout << "\033[2J\033[1;1H";
+	  std::cout << "Successfully exited program" << std::endl;
       return 0;
 }

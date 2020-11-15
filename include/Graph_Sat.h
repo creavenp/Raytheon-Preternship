@@ -59,6 +59,13 @@ public:
 			add_edge(origin, destin, weight);
 		}
 	}
+	
+	// Add edges in both directions between origin and destin
+	void add_two_way_edge(unsigned int origin, unsigned int destin)
+	{
+		add_edge(origin, destin);
+		add_edge(destin, origin);
+	}
 
 	// Set the value of an edge with a specific weight
 	void set_edge_value(unsigned int origin, unsigned int destin, double weight) {
